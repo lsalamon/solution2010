@@ -21,7 +21,7 @@ namespace STalkServer.Client
     /// 客户端连接对象
     /// 每个连进的客户端为一个实例
     /// </summary>
-    class XmppServerConnection
+    class SocketConnection
     {
         private StreamParser m_StreamParser;
         private Socket m_Socket;
@@ -32,7 +32,7 @@ namespace STalkServer.Client
         private Jid m_JID;
         private byte[] m_Buffer = new byte[BUFFERSIZE];
 
-        public XmppServerConnection()
+        public SocketConnection()
         {
             m_StreamParser = new StreamParser();
             m_StreamParser.OnStreamStart += new StreamHandler(m_StreamParser_OnStreamStart);
@@ -41,7 +41,7 @@ namespace STalkServer.Client
             m_StreamParser.OnStreamElement += new StreamHandler(m_StreamParser_OnStreamElement);
         }
 
-        public XmppServerConnection(Socket socket):this()
+        public SocketConnection(Socket socket):this()
         {
             m_Socket = socket;
 

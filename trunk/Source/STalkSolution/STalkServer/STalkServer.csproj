@@ -40,7 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Client\XmppServerConnection.cs" />
+    <Compile Include="Client\ClientFactory.cs" />
+    <Compile Include="Client\SocketConnection.cs" />
     <Compile Include="IMServer.cs" />
     <Compile Include="Lib\Function.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
