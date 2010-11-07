@@ -385,26 +385,6 @@
     <Compile Include="XmppComponentConnection.cs" />
     <Compile Include="XmppConnection.cs" />
   </ItemGroup>
-<<<<<<< .mine
-  <ItemGroup>
-    <Content Include="obj\Debug\XMPPProtocol.csproj.FileListAbsolute.txt" />
-    <Content Include="obj\Debug\XMPPProtocol.dll" />
-    <Content Include="obj\Debug\XMPPProtocol.pdb" />
-    <Content Include="XMPPProtocol %28Linux%27s conflicted copy 2010-11-07%29.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput %28Linux%27s conflicted copy 2010-11-07%29.cache" />
-    <None Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="obj\Debug\TempPE\" />
-    <Folder Include="Protocol\extensions\jingle\" />
-  </ItemGroup>
-=======
-  <ItemGroup>
-    <Folder Include="Protocol\extensions\jingle\" />
-  </ItemGroup>
->>>>>>> .r5
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
