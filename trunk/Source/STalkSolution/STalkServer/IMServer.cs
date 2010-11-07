@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Net;
+using System.Net.Security;
 using System.Net.Sockets;
 using System.Collections.Generic;
 using System.Text;

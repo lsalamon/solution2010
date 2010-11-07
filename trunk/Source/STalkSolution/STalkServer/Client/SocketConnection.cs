@@ -25,6 +25,7 @@ namespace STalkServer.Client
     {
         private StreamParser m_StreamParser;
         private Socket m_Socket;
+        private NetworkStream m_NetStream;
         /// <summary>
         /// 缓冲区大小
         /// </summary>
@@ -44,11 +45,10 @@ namespace STalkServer.Client
         public SocketConnection(Socket socket):this()
         {
             m_Socket = socket;
-
-            //开始接收
+            m_NetStream = new NetworkStream(m_Socket);
             try
             {
-                m_Socket.BeginReceive(m_Buffer, 0, m_Buffer.Length, SocketFlags.None, new AsyncCallback(OnDataReceive), null);
+                m_NetStream.BeginRead(m_Buffer, 0, m_Buffer.Length,  new AsyncCallback(OnDataReceive), null);
             }
             catch
             { 
@@ -63,14 +63,14 @@ namespace STalkServer.Client
         {
             try
             {
-                int ret = m_Socket.EndReceive(iar);
+                int ret = m_NetStream.EndRead(iar);
                 if (ret > 0)
                 {
                     m_StreamParser.Push(m_Buffer, 0, ret);
 
                     //重置缓冲
                     m_Buffer = new byte[BUFFERSIZE];
-                    m_Socket.BeginReceive(m_Buffer, 0, m_Buffer.Length, SocketFlags.None, new AsyncCallback(OnDataReceive), null);
+                    m_NetStream.BeginRead(m_Buffer, 0, m_Buffer.Length, new AsyncCallback(OnDataReceive), null);
                 }
                 else
                 {
@@ -88,7 +88,7 @@ namespace STalkServer.Client
         {
             try
             {
-                int ret = m_Socket.EndSend(iar);
+               m_NetStream.EndWrite(iar);
             }
             catch
             { 
@@ -101,10 +101,11 @@ namespace STalkServer.Client
             try
             {
                 byte[] sendBuffer = Encoding.UTF8.GetBytes(xml);
-                m_Socket.BeginSend(sendBuffer, 0, sendBuffer.Length, SocketFlags.None, new AsyncCallback(OnDataSend), null);
+                m_NetStream.BeginWrite(sendBuffer, 0, sendBuffer.Length, new AsyncCallback(OnDataSend), null);
             }
             catch
             {
+
             }
         }
 
