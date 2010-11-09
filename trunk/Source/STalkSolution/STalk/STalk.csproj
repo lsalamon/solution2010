@@ -80,6 +80,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="View\jquery-1.4.3.min.js" />
+    <Content Include="View\jquery.js" />
+    <Content Include="View\jquery.json-2.2.min.js" />
     <Content Include="View\Test.htm">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
