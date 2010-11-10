@@ -128,7 +128,7 @@ namespace STalk.MSSQLProvider
         /// <returns></returns>
         public bool IsExistsUserName(string userName)
         {
-            bool result = false;
+            bool result = true;
             string sql = "select count(UserID) from Tb_User where UserName=@UserName";
             SqlParameter[] parms = SqlHelperParameterCache.GetCachedParameterSet(sql);
             if (parms == null)
