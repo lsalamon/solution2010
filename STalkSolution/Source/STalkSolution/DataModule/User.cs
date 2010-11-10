@@ -42,6 +42,9 @@ namespace STalk.DataModule
         }
 
         private uint m_Status = 0;
+        /// <summary>
+        /// 0未认证email 1 正常 2 锁定禁止登陆
+        /// </summary>
         public uint Status
         {
             get { return m_Status; }

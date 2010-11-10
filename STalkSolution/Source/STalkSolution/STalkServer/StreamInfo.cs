@@ -8,9 +8,9 @@ namespace STalkServer
     class StreamInfo
     {
         private Node m_Node = null;
-        private SocketConnection m_Client = null;
+        private ClientConnection m_Client = null;
 
-        public StreamInfo(Node node, SocketConnection client)
+        public StreamInfo(Node node, ClientConnection client)
         {
             m_Node = node;
             m_Client = client;
@@ -22,7 +22,7 @@ namespace STalkServer
             set { m_Node = value; }
         }
 
-        public SocketConnection Client
+        public ClientConnection Client
         {
             get { return m_Client; }
             set { m_Client = value; }

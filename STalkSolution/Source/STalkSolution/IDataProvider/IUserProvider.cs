@@ -13,8 +13,6 @@ namespace STalk.IDataProvider
 
         void UpdateUserPwdByUserID(int userID, string userPwd);
 
-        User CheckUserLogin(User user);
-
         void UpdateUserStatusByUserID(int userID, uint Status);
 
         bool IsExistsUserName(string userName);

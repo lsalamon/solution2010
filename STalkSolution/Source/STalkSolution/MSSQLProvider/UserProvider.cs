@@ -76,30 +76,94 @@ namespace STalk.MSSQLProvider
             return user;
         }
 
+        public void UpdateUserLoginInfo(User user)
+        {
+            string sql = "Update Tb_User set LastLoginIP=@LastLoginIP,LastLoginTime=getdate(),Server=@Server where UserID=@UserID";
+            SqlParameter[] parms = SqlHelperParameterCache.GetCachedParameterSet(sql);
+            if (parms == null)
+            {
+                parms = new SqlParameter[] { 
+                    new SqlParameter("@LastLoginIP",SqlDbType.NVarChar,20),
+                    new SqlParameter("@Server",SqlDbType.NVarChar,50),
+                    new SqlParameter("@UserID",SqlDbType.BigInt)
+                };
+                SqlHelperParameterCache.CacheParameterSet(sql, parms);
+            }
+
+            parms[0].Value = user.LastLoginIP;
+            parms[1].Value = user.Server;
+            parms[2].Value = user.UserID;
+
+            SqlHelper.ExecuteNonQuery(connString, CommandType.Text, sql, parms);
+        }
+
         public void UpdateUserPwdByUserID(int userID, string userPwd)
         {
             throw new NotImplementedException();
         }
 
-        public User CheckUserLogin(User user)
+        public void UpdateUserStatusByUserID(int userID, uint status)
         {
-            throw new NotImplementedException();
+            string sql = "Update Tb_User set Status=@Status where UserID=@UserID";
+            SqlParameter[] parms = SqlHelperParameterCache.GetCachedParameterSet(sql);
+            if (parms == null)
+            {
+                parms = new SqlParameter[] { 
+                    new SqlParameter("@Status",SqlDbType.TinyInt),
+                    new SqlParameter("@UserID",SqlDbType.BigInt)
+                };
+                SqlHelperParameterCache.CacheParameterSet(sql, parms);
+            }
+
+            parms[0].Value = status;
+            parms[1].Value = userID;
+
+            SqlHelper.ExecuteNonQuery(connString, CommandType.Text, sql, parms);
         }
 
-        public void UpdateUserStatusByUserID(int userID, uint Status)
-        {
-            throw new NotImplementedException();
-        }
-
-
+        /// <summary>
+        /// 检查用户名是否存在
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
         public bool IsExistsUserName(string userName)
         {
-            throw new NotImplementedException();
+            bool result = false;
+            string sql = "select count(UserID) from Tb_User where UserName=@UserName";
+            SqlParameter[] parms = SqlHelperParameterCache.GetCachedParameterSet(sql);
+            if (parms == null)
+            {
+                parms = new SqlParameter[] { 
+                    new SqlParameter("@UserName",SqlDbType.NVarChar,15)
+                };
+                SqlHelperParameterCache.CacheParameterSet(sql, parms);
+            }
+
+            parms[0].Value = userName;
+            int rows = Convert.ToInt32(SqlHelper.ExecuteScalar(connString, CommandType.Text, sql, parms));
+            result = rows > 0;
+            return result;
         }
 
         public void InsertUser(User user)
         {
-            throw new NotImplementedException();
+            bool isExist = IsExistsUserName(user.UserName);
+            if (isExist)
+                return;
+
+            string sql = "Insert into Tb_User (UserName,UserPwd,LastLoginIP,LastLoginTime,RegTime) values (@UserName,@UserPwd,@LastLoginIP,getdate(),getdate())";
+            SqlParameter[] parms = SqlHelperParameterCache.GetCachedParameterSet(sql);
+            if (parms == null)
+            {
+                parms = new SqlParameter[] { 
+                    new SqlParameter("@UserName",SqlDbType.NVarChar,15),
+                    new SqlParameter("@UserPwd",SqlDbType.NVarChar,32),
+                    new SqlParameter("@LastLoginIP",SqlDbType.NVarChar,20)
+                };
+                SqlHelperParameterCache.CacheParameterSet(sql, parms);
+            }
+
+            SqlHelper.ExecuteNonQuery(connString, CommandType.Text, sql, parms);
         }
     }
 }
