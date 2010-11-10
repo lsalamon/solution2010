@@ -115,6 +115,7 @@ namespace STalkServer
         private void Send(string xml)
         {
             //异步发送
+            Console.WriteLine("Send:{0}",xml);
             try
             {
                 byte[] sendBuffer = Encoding.UTF8.GetBytes(xml);
