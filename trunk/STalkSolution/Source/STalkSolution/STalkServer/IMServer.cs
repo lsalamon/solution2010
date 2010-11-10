@@ -102,7 +102,7 @@ namespace STalkServer
                 
                 Socket socketHandler = m_ListenSocket.EndAccept(ar);
                 m_Log.Info(string.Format("来自:{0}的连接...",socketHandler.RemoteEndPoint.ToString()));
-                SocketConnection conn = new SocketConnection(socketHandler);
+                ClientConnection conn = new ClientConnection(socketHandler);
             }
             catch { }
         }

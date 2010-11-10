@@ -21,7 +21,7 @@ namespace STalkServer
     /// 客户端连接对象
     /// 每个连进的客户端为一个实例
     /// </summary>
-    class SocketConnection
+    class ClientConnection
     {
         private StreamParser m_StreamParser;
         private Socket m_Socket;
@@ -50,7 +50,7 @@ namespace STalkServer
             get { return m_SessionID; }
         }
 
-        public SocketConnection()
+        public ClientConnection()
         {
             m_StreamParser = new StreamParser();
             m_StreamParser.OnStreamStart += new StreamHandler(m_StreamParser_OnStreamStart);
@@ -59,7 +59,7 @@ namespace STalkServer
             m_StreamParser.OnStreamElement += new StreamHandler(m_StreamParser_OnStreamElement);
         }
 
-        public SocketConnection(Socket socket):this()
+        public ClientConnection(Socket socket):this()
         {
             m_Socket = socket;
             m_NetStream = new NetworkStream(m_Socket);

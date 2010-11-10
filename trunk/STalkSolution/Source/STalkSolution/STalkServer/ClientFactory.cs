@@ -14,14 +14,14 @@ namespace STalkServer
         /// <summary>
         /// 用户集合
         /// </summary>
-        private static Dictionary<string, SocketConnection> m_Clients = new Dictionary<string, SocketConnection>();
+        private static Dictionary<string, ClientConnection> m_Clients = new Dictionary<string, ClientConnection>();
         private static object m_Status = new object();
 
         /// <summary>
         /// 添加客户端到集合
         /// </summary>
         /// <param name="client"></param>
-        public static void AddClient(SocketConnection client)
+        public static void AddClient(ClientConnection client)
         {
             lock (m_Status)
             {

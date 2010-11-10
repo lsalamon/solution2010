@@ -42,7 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClientFactory.cs" />
-    <Compile Include="SocketConnection.cs" />
+    <Compile Include="ClientConnection.cs" />
     <Compile Include="IMServer.cs" />
     <Compile Include="Lib\Function.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -66,9 +66,6 @@
       <Project>{8EA0E227-0128-4408-9353-3B5E8EBB51E9}</Project>
       <Name>XMPPProtocol</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

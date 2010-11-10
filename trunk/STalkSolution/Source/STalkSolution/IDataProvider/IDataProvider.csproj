@@ -36,6 +36,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IUserFriendProvider.cs" />
+    <Compile Include="IUserGroupProvider.cs" />
+    <Compile Include="IUserInfoProvider.cs" />
     <Compile Include="IUserProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
