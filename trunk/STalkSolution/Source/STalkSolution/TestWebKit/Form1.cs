@@ -13,23 +13,15 @@ namespace TestWebKit
 {
     public partial class Form1 : Form
     {
-
-
-        private WebKitBrowserEx m_WebBrowser;
+        private WebKitBrowser m_WebBrowser;
         public Form1()
         {
             InitializeComponent();
         }
 
-        protected override void WndProc(ref Message m)
-        {
-            Console.WriteLine(m);
-            base.WndProc(ref m);
-        }
-
         private void Form1_Load(object sender, EventArgs e)
         {
-            m_WebBrowser = new WebKitBrowserEx(false);
+            m_WebBrowser = new WebKitBrowser(false);
             m_WebBrowser.BackColor = Color.Black;
             m_WebBrowser.Dock = DockStyle.Fill;
             m_WebBrowser.JavaScriptExternalCall += new JavaScriptExternalCallEventHandler(webBrowser_JavaScriptExternalCall);
