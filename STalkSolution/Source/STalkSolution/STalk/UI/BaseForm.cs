@@ -55,7 +55,6 @@ namespace STalk.UI
             base.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             base.Width = 300;
             base.Height = 300;
-            base.Hide();
             base.MinimumSize = new Size(100, 100);
             base.BackColor = Color.FromArgb(34, 108, 138); //#226C8A
             this.DoubleBuffered = true;//设置本窗体
@@ -63,7 +62,11 @@ namespace STalk.UI
             SetStyle(ControlStyles.AllPaintingInWmPaint, true); // 禁止擦除背景.
             SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
             SetStyle(ControlStyles.SupportsTransparentBackColor, true);
+        }
 
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
         }
 
         protected override void WndProc(ref Message m)
@@ -83,7 +86,6 @@ namespace STalk.UI
                     }
                     break;
                 case Win32.WM_NCCALCSIZE:
-                    Console.WriteLine("");
                     break;
                 case Win32.WM_NCHITTEST:
                     //base.WndProc(ref m);
@@ -177,13 +179,16 @@ namespace STalk.UI
 
         void m_WebBrowser_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
-            this.Show();
+            //this.Show();
         }
 
         void m_WebBrowser_JavaScriptExternalCall(object sender, JavaScriptExternalEventArgs args)
         {
             switch (args.strId)
             {
+                case "FormShow":
+                    this.Show();
+                    break;
                 case "FormClose":
                     this.Close();
                     break;
@@ -209,7 +214,32 @@ namespace STalk.UI
                         JSONObject argv = JSONConvert.DeserializeObject(args.strArg);
                         JSONArray param = (JSONArray)argv["Param"];
                         base.Text = param[0].ToString();
-                        Console.WriteLine(param);
+                    }
+                    catch
+                    {
+                    }
+                    break;
+                case "FormSetMaxSize": //设置标题
+                    try
+                    {
+                        JSONObject argv = JSONConvert.DeserializeObject(args.strArg);
+                        JSONArray param = (JSONArray)argv["Param"];
+                        int width = Convert.ToInt32(param[0]);
+                        int height = Convert.ToInt32(param[1]);
+                        this.MaximumSize = new Size(width, height);
+                    }
+                    catch
+                    {
+                    }
+                    break;
+                case "FormSetMinSize": //设置标题
+                    try
+                    {
+                        JSONObject argv = JSONConvert.DeserializeObject(args.strArg);
+                        JSONArray param = (JSONArray)argv["Param"];
+                        int width = Convert.ToInt32(param[0]);
+                        int height = Convert.ToInt32(param[1]);
+                        this.MinimumSize = new Size(width, height);
                     }
                     catch
                     {
