@@ -16,6 +16,12 @@ namespace STalk.UI
 {
     public class BaseForm : Form
     {
+        [DllImportAttribute("gdi32.dll")]
+        public static extern IntPtr CreateRoundRectRgn(int nLeftRect, int nTopRect, int nRightRect, int nBottomRect, int nWidthEllipse, int nHeightEllipse);
+
+        [DllImportAttribute("user32.dll")]
+        public static extern int SetWindowRgn(IntPtr hWnd, IntPtr hRgn, bool bRedraw);
+
         [DllImport("user32.dll")]
         public static extern bool ReleaseCapture();
         [DllImport("User32.dll", EntryPoint = "SendMessage")]
@@ -26,13 +32,13 @@ namespace STalk.UI
         int lParam
         );
 
-        private Queue m_InvokeQueue=Queue.Synchronized(new Queue());
+        private Queue m_InvokeQueue = Queue.Synchronized(new Queue());
         private object m_Status = new object(); //线程锁定对象;
         public const bool DEBUG = true;
         /// <summary>
         /// 边框的大小
         /// </summary>
-        private const int BORDER_SIZE = 1;
+        private const int BORDER_SIZE = 3;
         protected WebKitBrowser m_WebBrowser = new WebKitBrowser(DEBUG);
         public BaseForm()
         {
@@ -50,19 +56,21 @@ namespace STalk.UI
             base.Height = 300;
             base.Hide();
             base.MinimumSize = new Size(100, 100);
-        //    this.BackColor = Color.FromArgb(34, 108, 138);
+            //    this.BackColor = Color.FromArgb(34, 108, 138);
             this.DoubleBuffered = true;//设置本窗体
-           // this.Opacity = 0.8d;
+            // this.Opacity = 0.8d;
             SetStyle(ControlStyles.UserPaint, true);
             SetStyle(ControlStyles.AllPaintingInWmPaint, true); // 禁止擦除背景.
-            SetStyle(ControlStyles.DoubleBuffer, true); // 双缓冲
+          //  SetStyle(ControlStyles.DoubleBuffer, true); // 双缓冲
+            SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
             SetStyle(ControlStyles.SupportsTransparentBackColor, true);
             this.BackColor = Color.Transparent;
         }
 
         protected override void WndProc(ref Message m)
         {
-            switch (m.Msg) 
+          //  Console.WriteLine(m);
+            switch (m.Msg)
             {
                 case Win32.WM_NCPAINT:
                     break;
@@ -79,37 +87,39 @@ namespace STalk.UI
                 case Win32.WM_NCCALCSIZE:
                     break;
                 case Win32.WM_NCHITTEST:
-                        base.WndProc(ref m);
-                        Point vPoint = new Point((int)m.LParam & 0xFFFF, (int)m.LParam >> 16 & 0xFFFF);
-                        vPoint = PointToClient(vPoint);
-                        if (this.WindowState == FormWindowState.Normal)
+                    base.WndProc(ref m);
+                    Point vPoint = new Point((int)m.LParam & 0xFFFF, (int)m.LParam >> 16 & 0xFFFF);
+                    Console.WriteLine(vPoint);
+                    vPoint = PointToClient(vPoint);
+                    Console.WriteLine(vPoint);
+                    if (this.WindowState == FormWindowState.Normal)
+                    {
+                        if (vPoint.X <= 3)
                         {
-                            if (vPoint.X <= 3)
-                            {
-                                if (vPoint.Y <= 3)
-                                    m.Result = (IntPtr)Win32.HTTOPLEFT;
-                                else if (vPoint.Y >= Height - 3)
-                                    m.Result = (IntPtr)Win32.HTBOTTOMLEFT;
-                                else 
-                                    m.Result = (IntPtr)Win32.HTLEFT;
-                            }
-                            else if (vPoint.X >= Width - 3)
-                            {
-                                 if (vPoint.Y <= 3)
-                                    m.Result = (IntPtr)Win32.HTTOPRIGHT;
-                                else if (vPoint.Y >= Height - 3)
-                                    m.Result = (IntPtr)Win32.HTBOTTOMRIGHT;
-                                else 
-                                     m.Result = (IntPtr)Win32.HTRIGHT;
-                            }
-                            else if (vPoint.Y <= 3)
-                            {
-                                m.Result = (IntPtr)Win32.HTTOP;
-                            }
+                            if (vPoint.Y <= 3)
+                                m.Result = (IntPtr)Win32.HTTOPLEFT;
                             else if (vPoint.Y >= Height - 3)
-                                m.Result = (IntPtr)Win32.HTBOTTOM;
+                                m.Result = (IntPtr)Win32.HTBOTTOMLEFT;
+                            else
+                                m.Result = (IntPtr)Win32.HTLEFT;
                         }
-                     break;
+                        else if (vPoint.X >= Width - 3)
+                        {
+                            if (vPoint.Y <= 3)
+                                m.Result = (IntPtr)Win32.HTTOPRIGHT;
+                            else if (vPoint.Y >= Height - 3)
+                                m.Result = (IntPtr)Win32.HTBOTTOMRIGHT;
+                            else
+                                m.Result = (IntPtr)Win32.HTRIGHT;
+                        }
+                        else if (vPoint.Y <= 3)
+                        {
+                            m.Result = (IntPtr)Win32.HTTOP;
+                        }
+                        else if (vPoint.Y >= Height - 3)
+                            m.Result = (IntPtr)Win32.HTBOTTOM;
+                    }
+                    break;
                 default:
                     base.WndProc(ref m);
                     break;
@@ -123,9 +133,16 @@ namespace STalk.UI
 
         protected override void OnSizeChanged(EventArgs e)
         {
+            //调整角度
+            IntPtr regionHandle = CreateRoundRectRgn(0, 0, Width, Height, 10, 10);
+            Region roundRegion = null;
+            roundRegion = Region.FromHrgn(regionHandle);
+            SetWindowRgn(Handle, regionHandle, true);
+
             base.OnSizeChanged(e);
-            m_WebBrowser.Width = base.Width - (BORDER_SIZE * 2);
-            m_WebBrowser.Height = base.Height - (BORDER_SIZE * 2);
+          //  m_WebBrowser.Width = base.Width - (BORDER_SIZE * 2);
+          //  m_WebBrowser.Height = base.Height - (BORDER_SIZE * 2);
+          //  SetWindowRgn(m_WebBrowser.Handle, regionHandle, true);
         }
         #endregion
 
@@ -139,6 +156,7 @@ namespace STalk.UI
 
         private void InitWebKit()
         {
+          //  m_WebBrowser.Dock = DockStyle.Fill;
             m_WebBrowser.Location = new System.Drawing.Point(BORDER_SIZE, BORDER_SIZE);
             m_WebBrowser.Margin = new System.Windows.Forms.Padding(0);
             m_WebBrowser.TabIndex = 0;
@@ -154,6 +172,7 @@ namespace STalk.UI
             this.Controls.Add(m_WebBrowser);
         }
 
+
         void m_WebBrowser_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
             this.Show();
@@ -161,7 +180,7 @@ namespace STalk.UI
 
         void m_WebBrowser_JavaScriptExternalCall(object sender, JavaScriptExternalEventArgs args)
         {
-           //Console.WriteLine("ExternalCall:{0} {1} {2}", args.strPage, args.strId, args.strArg);
+            //Console.WriteLine("ExternalCall:{0} {1} {2}", args.strPage, args.strId, args.strArg);
             switch (args.strId)
             {
                 case "FormClose":
@@ -195,7 +214,7 @@ namespace STalk.UI
                         Console.WriteLine(param);
                     }
                     catch
-                    { 
+                    {
                     }
                     break;
                 default:
@@ -237,7 +256,7 @@ namespace STalk.UI
                 m_WebBrowser.InvokeScript(script, true);
             }
             catch
-            { 
+            {
             }
         }
 
