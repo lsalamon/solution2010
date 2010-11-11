@@ -41,6 +41,8 @@
     <Compile Include="RowHelper.cs" />
     <Compile Include="SqlHelper.cs" />
     <Compile Include="UserFriendProvider.cs" />
+    <Compile Include="UserGroupProvider.cs" />
+    <Compile Include="UserInfoProvider.cs" />
     <Compile Include="UserProvider.cs" />
   </ItemGroup>
   <ItemGroup>
