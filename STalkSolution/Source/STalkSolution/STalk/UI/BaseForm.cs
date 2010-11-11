@@ -38,7 +38,7 @@ namespace STalk.UI
         /// <summary>
         /// 边框的大小
         /// </summary>
-        private const int BORDER_SIZE = 0;
+        private const int BORDER_SIZE = 2;
         protected WebKitBrowser m_WebBrowser = new WebKitBrowser(DEBUG);
         public BaseForm()
         {
@@ -51,6 +51,7 @@ namespace STalk.UI
         #region winform初始化
         private void InitBaseForm()
         {
+          //  base.ClientSize = new Size(base.ClientSize.Width + 10, base.ClientSize.Height + 10);
             base.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             base.Width = 300;
             base.Height = 300;
@@ -85,6 +86,7 @@ namespace STalk.UI
                     }
                     break;
                 case Win32.WM_NCCALCSIZE:
+                    Console.WriteLine("");
                     break;
                 case Win32.WM_NCHITTEST:
                     base.WndProc(ref m);
@@ -134,14 +136,19 @@ namespace STalk.UI
         protected override void OnSizeChanged(EventArgs e)
         {
             //调整角度
-            IntPtr regionHandle = CreateRoundRectRgn(0, 0, Width, Height, 10, 10);
-            Region roundRegion = null;
-            roundRegion = Region.FromHrgn(regionHandle);
-            SetWindowRgn(Handle, regionHandle, true);
+            //IntPtr regionHandle = CreateRoundRectRgn(0, 0, Width, Height, 10, 10);
+            //Region roundRegion = null;
+            //roundRegion = Region.FromHrgn(regionHandle);
+            //SetWindowRgn(Handle, regionHandle, true);
 
             base.OnSizeChanged(e);
             m_WebBrowser.Width = base.Width - (BORDER_SIZE * 2);
             m_WebBrowser.Height = base.Height - (BORDER_SIZE * 2);
+
+            IntPtr WKregionHandle = CreateRoundRectRgn(0, 0, m_WebBrowser.Width, m_WebBrowser.Height, 6, 6);
+            Region WKroundRegion = null;
+            WKroundRegion = Region.FromHrgn(WKregionHandle);
+            SetWindowRgn(m_WebBrowser.Handle, WKregionHandle, true);
           //  SetWindowRgn(m_WebBrowser.Handle, regionHandle, true);
         }
         #endregion
