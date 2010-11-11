@@ -18,5 +18,7 @@ namespace STalk.IDataProvider
         bool IsExistsUserName(string userName);
 
         void InsertUser(User user);
+
+        void UpdateUserLoginInfo(User user);
     }
 }

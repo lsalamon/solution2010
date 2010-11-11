@@ -45,7 +45,8 @@ namespace STalkServer
         {
             lock (m_Status)
             {
-                m_Clients.Remove(jid);
+                if(m_Clients.ContainsKey(jid))
+                    m_Clients.Remove(jid);
             }
         }
     }

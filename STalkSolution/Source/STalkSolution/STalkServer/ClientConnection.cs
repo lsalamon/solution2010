@@ -14,6 +14,9 @@ using XMPPProtocol.Protocol.client;
 using XMPPProtocol.Protocol.x;
 using XMPPProtocol.Xml;
 using XMPPProtocol.Xml.Dom;
+using STalk.DataModule;
+using STalk.DataFactory;
+using STalk.IDataProvider;
 
 namespace STalkServer
 {
@@ -30,9 +33,16 @@ namespace STalkServer
         /// 缓冲区大小
         /// </summary>
         private const int BUFFERSIZE = 1024;
-        private Jid m_JID=null;
+        private Jid m_JID = null;
         private string m_SessionID = string.Empty;
         private byte[] m_Buffer = new byte[BUFFERSIZE];
+        private User m_User = new User();
+
+        public User User
+        {
+            get { return m_User; }
+            set { m_User = value; }
+        }
 
         public Jid JID
         {
@@ -68,7 +78,8 @@ namespace STalkServer
                 m_NetStream.BeginRead(m_Buffer, 0, m_Buffer.Length,  new AsyncCallback(OnDataReceive), null);
             }
             catch
-            { 
+            {
+                DisConnect();
             }
         }
 
@@ -108,7 +119,8 @@ namespace STalkServer
                m_NetStream.EndWrite(iar);
             }
             catch
-            { 
+            {
+                DisConnect();
             }
         }
 
@@ -123,7 +135,7 @@ namespace STalkServer
             }
             catch
             {
-
+                DisConnect();
             }
         }
 
@@ -148,6 +160,14 @@ namespace STalkServer
             }
 
             //这里需要离线逻辑处理
+            ClientFactory.RemoveClient(m_JID.ToString());
+
+            //update数据库
+            m_User.Server = string.Empty;
+            DataFactory.UserProvider.UpdateUserLoginInfo(m_User);
+
+            //通知好友已经下线
+            
         }
 
         #region StreamParser 事件
