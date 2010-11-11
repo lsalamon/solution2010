@@ -14,6 +14,8 @@ namespace STalk
         public frmMain()
         {
             InitializeComponent();
+            frmLogin frm = new frmLogin();
+            frm.ShowDialog();
         }
     }
 }

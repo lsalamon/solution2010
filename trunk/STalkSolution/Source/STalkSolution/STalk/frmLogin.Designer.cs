@@ -28,9 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.SuspendLayout();
+            // 
+            // m_WebBrowser
+            // 
+            this.m_WebBrowser.Size = new System.Drawing.Size(338, 243);
+            // 
+            // frmLogin
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(340, 245);
+            this.Name = "frmLogin";
             this.Text = "frmLogin";
+            this.Load += new System.EventHandler(this.frmLogin_Load);
+            this.ResumeLayout(false);
+
         }
 
         #endregion
