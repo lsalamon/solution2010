@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using STalk.DataModule;
 using STalk.IDataProvider;
-using System.Data.SqlClient;
-using System.Data;
 
 namespace STalk.MSSQLProvider
 {
@@ -70,6 +68,23 @@ namespace STalk.MSSQLProvider
 
         public void UpdateGroupSortNum(int userID, int id, int sortNum)
         {
+            string sql = "sp_update_group_sort";
+            SqlParameter[] parms = SqlHelperParameterCache.GetCachedParameterSet(sql);
+            if (parms == null)
+            {
+                parms = new SqlParameter[] { 
+                    new SqlParameter("@userid",SqlDbType.Int),
+                    new SqlParameter("@id",SqlDbType.Int),
+                    new SqlParameter("@sort",SqlDbType.Int)
+                };
+                SqlHelperParameterCache.CacheParameterSet(sql, parms);
+            }
+
+            parms[0].Value = userID;
+            parms[1].Value = id;
+            parms[2].Value = sortNum;
+
+            SqlHelper.ExecuteNonQuery(connString, CommandType.StoredProcedure, sql, parms);
         }
 
         public void UpdateGroupName(int id, string name)
