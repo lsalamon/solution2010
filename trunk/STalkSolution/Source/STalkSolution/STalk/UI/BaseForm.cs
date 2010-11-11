@@ -38,7 +38,7 @@ namespace STalk.UI
         /// <summary>
         /// 边框的大小
         /// </summary>
-        private const int BORDER_SIZE = 2;
+        private const int BORDER_SIZE = 1;
         protected WebKitBrowser m_WebBrowser = new WebKitBrowser(DEBUG);
         public BaseForm()
         {
@@ -57,20 +57,17 @@ namespace STalk.UI
             base.Height = 300;
             base.Hide();
             base.MinimumSize = new Size(100, 100);
-            //    this.BackColor = Color.FromArgb(34, 108, 138);
+            base.BackColor = Color.FromArgb(34, 108, 138); //#226C8A
             this.DoubleBuffered = true;//设置本窗体
-            // this.Opacity = 0.8d;
             SetStyle(ControlStyles.UserPaint, true);
             SetStyle(ControlStyles.AllPaintingInWmPaint, true); // 禁止擦除背景.
-          //  SetStyle(ControlStyles.DoubleBuffer, true); // 双缓冲
             SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
             SetStyle(ControlStyles.SupportsTransparentBackColor, true);
-            this.BackColor = Color.Transparent;
+
         }
 
         protected override void WndProc(ref Message m)
         {
-          //  Console.WriteLine(m);
             switch (m.Msg)
             {
                 case Win32.WM_NCPAINT:
@@ -89,11 +86,9 @@ namespace STalk.UI
                     Console.WriteLine("");
                     break;
                 case Win32.WM_NCHITTEST:
-                    base.WndProc(ref m);
+                    //base.WndProc(ref m);
                     Point vPoint = new Point((int)m.LParam & 0xFFFF, (int)m.LParam >> 16 & 0xFFFF);
-                   // Console.WriteLine(vPoint);
                     vPoint = PointToClient(vPoint);
-                  //  Console.WriteLine(vPoint);
                     if (this.WindowState == FormWindowState.Normal)
                     {
                         if (vPoint.X <= 3)
@@ -145,11 +140,11 @@ namespace STalk.UI
             m_WebBrowser.Width = base.Width - (BORDER_SIZE * 2);
             m_WebBrowser.Height = base.Height - (BORDER_SIZE * 2);
 
+            /* 不要删除！！
             IntPtr WKregionHandle = CreateRoundRectRgn(0, 0, m_WebBrowser.Width, m_WebBrowser.Height, 6, 6);
             Region WKroundRegion = null;
             WKroundRegion = Region.FromHrgn(WKregionHandle);
-            SetWindowRgn(m_WebBrowser.Handle, WKregionHandle, true);
-          //  SetWindowRgn(m_WebBrowser.Handle, regionHandle, true);
+            SetWindowRgn(m_WebBrowser.Handle, WKregionHandle, true);*/
         }
         #endregion
 
@@ -187,7 +182,6 @@ namespace STalk.UI
 
         void m_WebBrowser_JavaScriptExternalCall(object sender, JavaScriptExternalEventArgs args)
         {
-            //Console.WriteLine("ExternalCall:{0} {1} {2}", args.strPage, args.strId, args.strArg);
             switch (args.strId)
             {
                 case "FormClose":
@@ -213,9 +207,6 @@ namespace STalk.UI
                     try
                     {
                         JSONObject argv = JSONConvert.DeserializeObject(args.strArg);
-                        //回调
-                        string fnCallback = argv["CallBack"].ToString();
-                        //参数
                         JSONArray param = (JSONArray)argv["Param"];
                         base.Text = param[0].ToString();
                         Console.WriteLine(param);
@@ -268,6 +259,18 @@ namespace STalk.UI
         }
 
         #endregion
+
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            // 
+            // BaseForm
+            // 
+            this.ClientSize = new System.Drawing.Size(284, 262);
+            this.Name = "BaseForm";
+            this.ResumeLayout(false);
+
+        }
 
 
 
