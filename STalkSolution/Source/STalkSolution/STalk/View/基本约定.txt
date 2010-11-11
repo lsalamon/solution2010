@@ -1,0 +1,39 @@
+﻿文件夹
+css\
+   \base.css 基类
+
+images\
+	\base\ 放置公用的
+    \page_xxx\xxx.jpg 每个页面需要用到的图片
+
+js\
+   根目录放公用的
+   page_xxx.js 代表每个页面需要用到js
+
+
+页面使用jquery库
+必须依次包含
+<script type="text/javascript" src="js/jquery-1.4.3.min.js"></script>
+<script type="text/javascript" src="js/jquery.json-2.2.min.js"></script>
+<script type="text/javascript" src="js/Comm.js"></script>
+<script type="text/javascript" src="js/page_xxxxx.js"></script>
+
+page_xxx.js文件里面必须有一个提供给client回调的function
+//统一调用函数，每个页面必须有 名字不能修改
+function ProcessCmd(json) {
+    /*
+    json格式
+    json.Cmd = 对应执行的函数
+    json.Param = 参数
+    */
+    try {
+        alert(json.Cmd);
+    }
+    catch (e) { }
+}
+====================================
+Comm.js文件里面有一个Winform操作类，里面有对应的函数
+function ExternalCall //调用winform方法,
+action是指令，
+第二个参数是CallBack 参数
+后面可以带任意参数，参数会以json的数组的形式传递给winform

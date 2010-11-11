@@ -92,6 +92,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="View\css\base.css" />
     <Content Include="View\js\Comm.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -110,9 +111,9 @@
     <Content Include="View\js\page_Test.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="View\基本约定.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="View\css\" />
     <Folder Include="View\images\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
