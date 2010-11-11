@@ -40,6 +40,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RowHelper.cs" />
     <Compile Include="SqlHelper.cs" />
+    <Compile Include="UserFriendProvider.cs" />
     <Compile Include="UserProvider.cs" />
   </ItemGroup>
   <ItemGroup>

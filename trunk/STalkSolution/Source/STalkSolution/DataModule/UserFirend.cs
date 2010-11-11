@@ -53,5 +53,16 @@ namespace STalk.DataModule
             get { return m_NickName; }
             set { m_NickName = value; }
         }
+
+        private string m_Subscription = "none";
+       /// <summary>
+       ///  对应none,both,from,to,remove 
+        ///  http://xmpp.org/extensions/xep-0162.html
+       /// </summary>
+        public string Subscription
+        {
+            get { return m_Subscription; }
+            set { m_Subscription = value; }
+        }
     }
 }
