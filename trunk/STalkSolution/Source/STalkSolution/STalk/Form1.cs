@@ -9,7 +9,7 @@ using STalk.UI;
 
 namespace STalk
 {
-    public partial class Form1 : BaseView
+    public partial class Form1 : BaseForm
     {
         public Form1()
         {

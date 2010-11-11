@@ -138,8 +138,17 @@ namespace STalkServer
             }
         }
 
+        /// <summary>
+        /// 处理好友查询
+        /// </summary>
+        /// <param name="sInfo"></param>
         private static void ProcessIQRoster(StreamInfo sInfo)
-        { 
+        {
+            IQ iq = (IQ)sInfo.Node;
+            if (iq.Type == IqType.get)
+            { 
+
+            }
         }
 
         /// <summary>
