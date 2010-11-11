@@ -14,7 +14,7 @@ using STalk.Lib;
 
 namespace STalk.UI
 {
-    public class BaseView : Form
+    public class BaseForm : Form
     {
         [DllImport("user32.dll")]
         public static extern bool ReleaseCapture();
@@ -34,7 +34,7 @@ namespace STalk.UI
         /// </summary>
         private const int BORDER_SIZE = 1;
         protected WebKitBrowser m_WebBrowser = new WebKitBrowser(DEBUG);
-        public BaseView()
+        public BaseForm()
         {
             InitBaseForm();
             InitWebKit();
