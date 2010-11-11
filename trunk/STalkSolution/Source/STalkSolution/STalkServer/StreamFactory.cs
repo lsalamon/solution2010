@@ -10,6 +10,14 @@ using STalk.DataFactory;
 using XMPPProtocol.Protocol;
 using XMPPProtocol.Protocol.stream;
 using XMPPProtocol.Protocol.iq;
+using XMPPProtocol.Protocol.iq.avatar;
+using XMPPProtocol.Protocol.iq.agent;
+using XMPPProtocol.Protocol.iq.disco;
+using XMPPProtocol.Protocol.iq.last;
+using XMPPProtocol.Protocol.iq.oob;
+using XMPPProtocol.Protocol.iq.rpc;
+using XMPPProtocol.Protocol.iq.vcard;
+using XMPPProtocol.Protocol.iq.time;
 using XMPPProtocol.Protocol.iq.auth;
 using XMPPProtocol.Protocol.iq.roster;
 using XMPPProtocol.Protocol.iq.browse;
@@ -18,6 +26,7 @@ using XMPPProtocol.Protocol.x;
 using XMPPProtocol.Protocol.extensions.compression;
 using XMPPProtocol.Xml;
 using XMPPProtocol.Xml.Dom;
+using log4net;
 
 namespace STalkServer
 {
@@ -76,21 +85,31 @@ namespace STalkServer
                 ProcessIQ(sInfo);
             }
             else if (sInfo.Node.GetType() == typeof(Message))
-            { 
+            {
+                ProcessMessage(sInfo);
             }
             else if (sInfo.Node.GetType() == typeof(Presence))
             {
                 ProcessPresence(sInfo);
             }
-            else if (sInfo.Node.GetType() == typeof(Features))
+            else if (sInfo.Node.GetType() == typeof(XMPPProtocol.Protocol.stream.Features))
             { 
             }
             else if (sInfo.Node.GetType() == typeof(Compressed))
             { 
+
             }
         }
 
+        private static void ProcessMessage(StreamInfo sInfo)
+        { 
 
+        }
+
+        /// <summary>
+        /// 处理IQ逻辑
+        /// </summary>
+        /// <param name="sInfo"></param>
         private static void ProcessIQ(StreamInfo sInfo)
         {
             IQ iq = (IQ)sInfo.Node;
@@ -101,14 +120,32 @@ namespace STalkServer
                 {
                     ProcessIQAuth(sInfo);
                 }
+                //视频请求
+                else if (iq.Query.GetType() == typeof(Rpc))
+                { 
+
+                }
+                //语音请求
+                else if (iq.Query.GetType() == typeof(Oob))
+                { 
+
+                }
+                //用户列表
+                else if (iq.Query.GetType() == typeof(Roster))
+                {
+                    ProcessIQRoster(sInfo);
+                }
             }
         }
 
-        private static void ProcessPresence(StreamInfo sInfo)
-        {
-
+        private static void ProcessIQRoster(StreamInfo sInfo)
+        { 
         }
 
+        /// <summary>
+        /// 处理用户验证
+        /// </summary>
+        /// <param name="sInfo"></param>
         private static void ProcessIQAuth(StreamInfo sInfo)
         {
             IQ iq = (IQ)sInfo.Node;
@@ -124,23 +161,49 @@ namespace STalkServer
                     break;
                 case IqType.set:
                     User user = DataFactory.UserProvider.GetUserByUserName(auth.Username);
-                    string digest = XMPPProtocol.Util.Hash.Sha1Hash(sInfo.Client.SessionID + user.UserPwd);
+                    //密码是MD5的大写
+                    string digest = XMPPProtocol.Util.Hash.Sha1Hash(sInfo.Client.SessionID + user.UserPwd.ToUpper());
                     if (auth.Digest == digest && !string.IsNullOrEmpty(user.UserName)) //登录验证通过
                     {
-                        sInfo.Client.JID = new XMPPProtocol.Jid(auth.Username, IMServer.SERVERNAME, "STalk");
-                        //添加到全局客户端字典
-                        ClientFactory.AddClient(sInfo.Client);
-                        //update 数据库 修改用户lastLoginIP lastLoginTime Server
-                        
-                        //通知其他IMServer 逼在线的下线
+                        if (user.Status == 0)
+                        {
+                            iq.SwitchDirection();
+                            iq.Type = IqType.error;
+                            iq.Query = null;
+                            iq.Error.Message = "账户还没激活！";
+                            sInfo.Client.Send(iq);
+                        }
+                        else if (user.Status == 2)
+                        {
+                            iq.SwitchDirection();
+                            iq.Type = IqType.error;
+                            iq.Query = null;
+                            iq.Error.Message = "账户被禁止登陆！";
+                            sInfo.Client.Send(iq);
+                        }
+                        else
+                        {
+                            sInfo.Client.JID = new XMPPProtocol.Jid(auth.Username, IMServer.SERVERNAME, "STalk");
+                            //添加到全局客户端字典
+                            ClientFactory.AddClient(sInfo.Client);
 
-                        //写入到登录日志
+                            //update 数据库 修改用户lastLoginIP lastLoginTime Server
+                            user.LastLoginIP = sInfo.Client.RemoteHostIP;
+                            user.Server = IMServer.SERVERNAME;
+                            DataFactory.UserProvider.UpdateUserLoginInfo(user);
 
-                        //发送登录成功iq
-                        iq.SwitchDirection();
-                        iq.Type = IqType.result;
-                        iq.Query = null;
-                        sInfo.Client.Send(iq);
+                            //
+                            sInfo.Client.User = user;
+                            //通知其他IMServer 逼在线的下线
+
+                            //写入到登录日志 这里可以用log4net记录
+
+                            //发送登录成功iq
+                            iq.SwitchDirection();
+                            iq.Type = IqType.result;
+                            iq.Query = null;
+                            sInfo.Client.Send(iq);
+                        }
                     }
                     else
                     {
@@ -154,6 +217,17 @@ namespace STalkServer
                     break;
             }
         }
+
+        /// <summary>
+        /// 处理用户出席信息
+        /// </summary>
+        /// <param name="sInfo"></param>
+        private static void ProcessPresence(StreamInfo sInfo)
+        {
+
+        }
+
+      
 
     }
 }
