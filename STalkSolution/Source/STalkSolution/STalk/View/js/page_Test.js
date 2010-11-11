@@ -19,9 +19,13 @@ function fuck() {
 }
 
 $(document).ready(function () {
-    $('#title').mousedown(function () {
-        ExternalCall('FormMove');
-    });
-
-    WinForm.SetTitle("Iamdcboy!!!!");
+    //    $('#title').mousedown(function () {
+    //        ExternalCall('FormMove');
+    //    });
+    //    $('#btnReSize').mousedown(function () {
+    //        ExternalCall('FormReSize');
+    //    });
+    //    WinForm.SetTitle("Iamdcboy!!!!");
+    // WinForm.SetTitle("Iamdcboy!!!!");
+    alert(WinForm.ExternalCall);
 });

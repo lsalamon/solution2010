@@ -25,7 +25,7 @@ namespace TestWebKit
             m_WebBrowser.BackColor = Color.Black;
             m_WebBrowser.Dock = DockStyle.Fill;
             m_WebBrowser.JavaScriptExternalCall += new JavaScriptExternalCallEventHandler(webBrowser_JavaScriptExternalCall);
-            Controls.Add(m_WebBrowser);
+           // Controls.Add(m_WebBrowser);
         }
 
 
