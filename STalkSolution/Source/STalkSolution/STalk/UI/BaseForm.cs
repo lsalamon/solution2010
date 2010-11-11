@@ -131,6 +131,12 @@ namespace STalk.UI
 
         #region webkit初始化
 
+        public WebKitBrowser Browser
+        {
+            get { return m_WebBrowser; }
+            set { m_WebBrowser = value; }
+        }
+
         private void InitWebKit()
         {
             m_WebBrowser.Location = new System.Drawing.Point(BORDER_SIZE, BORDER_SIZE);

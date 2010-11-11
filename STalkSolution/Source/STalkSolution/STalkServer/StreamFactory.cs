@@ -192,7 +192,7 @@ namespace STalkServer
                         }
                         else
                         {
-                            sInfo.Client.JID = new XMPPProtocol.Jid(auth.Username, IMServer.SERVERNAME, "STalk");
+                            sInfo.Client.JID = new XMPPProtocol.Jid(auth.Username, IMServer.SERVERNAME, auth.Resource);
                             //添加到全局客户端字典
                             ClientFactory.AddClient(sInfo.Client);
 

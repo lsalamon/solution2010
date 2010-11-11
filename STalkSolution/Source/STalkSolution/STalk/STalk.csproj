@@ -62,6 +62,7 @@
     <Compile Include="frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="Lib\Function.cs" />
     <Compile Include="Lib\JSONConvert.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -115,6 +116,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="View\images\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\XMPPProtocol\XMPPProtocol.csproj">
+      <Project>{8EA0E227-0128-4408-9353-3B5E8EBB51E9}</Project>
+      <Name>XMPPProtocol</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
