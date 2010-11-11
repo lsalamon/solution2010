@@ -12,6 +12,10 @@ var WinForm = $.extend({
     SetSize: function (width, height) { this.ExternalCall(this._CmdSetSize, width, height); },
     //设置标题
     SetTitle: function (title) { this.ExternalCall(_CmdSetTitle, title); },
+    //设置最小Size
+    SetMinSize: function (width, height) { },
+    //设置最大Size
+    SetMaxSize: function (width, height) { },
     //调用窗口方法
     ExternalCall: function (action) {
         var param = new Object();
