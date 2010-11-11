@@ -38,7 +38,7 @@ namespace STalk.UI
         /// <summary>
         /// 边框的大小
         /// </summary>
-        private const int BORDER_SIZE = 3;
+        private const int BORDER_SIZE = 0;
         protected WebKitBrowser m_WebBrowser = new WebKitBrowser(DEBUG);
         public BaseForm()
         {
@@ -89,9 +89,9 @@ namespace STalk.UI
                 case Win32.WM_NCHITTEST:
                     base.WndProc(ref m);
                     Point vPoint = new Point((int)m.LParam & 0xFFFF, (int)m.LParam >> 16 & 0xFFFF);
-                    Console.WriteLine(vPoint);
+                   // Console.WriteLine(vPoint);
                     vPoint = PointToClient(vPoint);
-                    Console.WriteLine(vPoint);
+                  //  Console.WriteLine(vPoint);
                     if (this.WindowState == FormWindowState.Normal)
                     {
                         if (vPoint.X <= 3)
@@ -140,8 +140,8 @@ namespace STalk.UI
             SetWindowRgn(Handle, regionHandle, true);
 
             base.OnSizeChanged(e);
-          //  m_WebBrowser.Width = base.Width - (BORDER_SIZE * 2);
-          //  m_WebBrowser.Height = base.Height - (BORDER_SIZE * 2);
+            m_WebBrowser.Width = base.Width - (BORDER_SIZE * 2);
+            m_WebBrowser.Height = base.Height - (BORDER_SIZE * 2);
           //  SetWindowRgn(m_WebBrowser.Handle, regionHandle, true);
         }
         #endregion
