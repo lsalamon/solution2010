@@ -7,17 +7,20 @@ using System.Text;
 using System.Windows.Forms;
 using STalk.UI;
 using STalk.Lib;
+using XMPPProtocol;
 
 namespace STalk
 {
     public partial class frmLogin : BaseForm
     {
+        private XmppClientConnection m_Xmpp = null;
         private string m_UrlFile = Function.GetViewPath("Login.htm");
 
-        public frmLogin()
+        public frmLogin(XmppClientConnection xmpp)
         {
             InitializeComponent();
-            base.Browser.Url = new Uri(m_UrlFile);
+            m_Xmpp = xmpp;
+            base.Browser.Url = new System.Uri(m_UrlFile);
         }
 
         protected override void OnLoad(EventArgs e)
