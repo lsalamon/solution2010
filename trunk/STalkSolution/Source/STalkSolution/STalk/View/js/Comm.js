@@ -12,6 +12,8 @@ var WinForm = $.extend({
     _CmdSetMinSize: "FormSetMinSize",
     _CmdShow: "FormShow",
     _CmdMove: "FormMove",
+    _CmdMessageBox: "MessageBox",
+    MessageBox: function (option) { this.ExternalCall(this._CmdMessageBox, option); },
     Close: function () { this.ExternalCall(this._CmdClose); },
     Move: function () { this.ExternalCall(this._CmdMove); },
     Show: function () { this.ExternalCall(this._CmdShow); },
