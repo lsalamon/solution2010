@@ -39,6 +39,11 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="WebKit.Interop, Version=533.0.0.0, Culture=neutral, PublicKeyToken=51450a8b0ac98d20, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\..\Include\Webkit_0.4修改版\WebKit.Interop.dll</HintPath>
+    </Reference>
     <Reference Include="WebKitBrowser">
       <HintPath>..\..\..\Include\Webkit_0.4修改版\WebKitBrowser.dll</HintPath>
     </Reference>

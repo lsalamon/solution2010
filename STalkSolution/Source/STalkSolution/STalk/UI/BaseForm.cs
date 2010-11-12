@@ -245,6 +245,21 @@ namespace STalk.UI
                     {
                     }
                     break;
+                case "MessageBox":
+                    try
+                    {
+                        JSONObject argv = JSONConvert.DeserializeObject(args.strArg);
+                        JSONArray param = (JSONArray)argv["Param"];
+                        JSONObject option = (JSONObject)param[0];
+                        DialogResult result = MessageBox.Show(option["Message"].ToString(),
+                            option["Title"].ToString(),(MessageBoxButtons)Convert.ToInt16(option["Button"]),
+                            (MessageBoxIcon)Convert.ToInt16(option["Icon"]));
+                        JSCall(option["CallBack"].ToString(), result.ToString());
+                    }
+                    catch
+                    {
+                    }
+                    break;
                 default:
                     break;
             }
@@ -257,11 +272,16 @@ namespace STalk.UI
         protected void JSCall(string method, params object[] argv)
         {
             //把参数转换成json
-            JSONObject jObj = new JSONObject();
-            jObj.Add("Cmd", method);
-            jObj.Add("Param", argv);
+           // JSONObject jObj = new JSONObject();
+            JSONArray param = new JSONArray();
+            foreach (object o in argv)
+            {
+                param.Add(o);
+            }
+            //jObj.Add("Cmd", method);
+           // jObj.Add("Param", argv);
             //统一调用javascript 中的 ProcessCmd
-            string script = string.Format("ProcessCmd({0})", JSONConvert.SerializeObject(jObj));
+            string script = string.Format("{0}({1})", method, JSONConvert.SerializeArray(param));
 
             //使用后台工作线程
             BackgroundWorker JSCallWorker = new BackgroundWorker();

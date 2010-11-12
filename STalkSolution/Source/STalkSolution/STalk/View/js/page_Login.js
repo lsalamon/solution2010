@@ -19,8 +19,21 @@
     });
 
     $('#CloseButton').click(function () {
-        WinForm.Close();
+        WinForm.MessageBox({ CallBack: "OnCloseCallBack",
+            Title: "提示",
+            Message: "是否退出?",
+            Icon:"16",
+            Button:"0"
+        }
+        );
     });
+
     //窗口先minsize 然后加载完毕后再设置normalsize 防止页面
     WinForm.NormalSize();
+
+    // alert(window);
 });
+
+function OnCloseCallBack(argv) {
+    alert(argv[0]);
+}
