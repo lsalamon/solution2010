@@ -13,7 +13,17 @@ var WinForm = $.extend({
     _CmdShow: "FormShow",
     _CmdMove: "FormMove",
     _CmdMessageBox: "MessageBox",
-    MessageBox: function (option) { this.ExternalCall(this._CmdMessageBox, option); },
+    MessageBox: function (option) {
+        var _option = {
+            CallBack: "OnCloseCallBack",
+            Title: "提示",
+            Message: "是否退出?",
+            Icon: "16",
+            Button: "0"
+        };
+         $.extend(option,_option);
+        this.ExternalCall(this._CmdMessageBox, option);
+    },
     Close: function () { this.ExternalCall(this._CmdClose); },
     Move: function () { this.ExternalCall(this._CmdMove); },
     Show: function () { this.ExternalCall(this._CmdShow); },

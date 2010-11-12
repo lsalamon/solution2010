@@ -21,10 +21,7 @@
     $('#CloseButton').click(function () {
         WinForm.MessageBox({ CallBack: "OnCloseCallBack",
             Title: "提示",
-            Message: "是否退出?",
-            Icon:"16",
-            Button:"0"
-        }
+            Message: "是否退出?"}
         );
     });
 
