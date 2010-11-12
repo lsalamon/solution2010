@@ -1,0 +1,6 @@
+﻿#WebForm{}
+#TitleBar{ background-color:#55c5f3; height:25px;}
+#TitleBar #Title{ margin-left:4px; height:25px; float:left;}
+#TitleBar #MinButton{float:right; height:20px; width:20px; margin-right:3px; background-color:White;}
+#TitleBar #MaxButton{float:right;height:20px; width:20px;margin-right:3px;background-color:White;}
+#TitleBar #CloseButton{ float:right;height:20px; width:20px;margin-right:3px;background-color:White;}

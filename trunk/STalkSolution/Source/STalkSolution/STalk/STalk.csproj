@@ -103,6 +103,9 @@
     <Content Include="View\css\base.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="View\css\page_Login.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="View\js\Comm.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -127,12 +130,9 @@
     <Content Include="View\js\page_Test.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="View\基本约定.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Content Include="View\基本约定.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Resources\" />
     <Folder Include="View\images\" />
   </ItemGroup>
   <ItemGroup>

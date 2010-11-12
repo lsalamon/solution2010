@@ -20,14 +20,15 @@ namespace STalk
             base.Browser.Url = new Uri(m_UrlFile);
         }
 
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+            WindowState = FormWindowState.Minimized;
+        }
+
         protected override void OnExternalCall(WebKit.JavaScriptExternalEventArgs args)
         {
             base.OnExternalCall(args);
-        }
-
-        private void frmLogin_Load(object sender, EventArgs e)
-        {
-            this.Hide();
         }
 
     }
