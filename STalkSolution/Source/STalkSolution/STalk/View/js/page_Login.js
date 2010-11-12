@@ -15,22 +15,27 @@
     });
 
     $('#MaxButton').click(function () {
-        //WinForm.MaxSize();
+
     });
 
     $('#CloseButton').click(function () {
-        WinForm.MessageBox({ CallBack: "OnCloseCallBack",
-            Title: "提示",
-            Message: "是否退出?"}
-        );
+        WinForm.Close();
     });
 
-    //窗口先minsize 然后加载完毕后再设置normalsize 防止页面
+    $('#btnLogin').click(function () {
+        if ($('#txtUserName').val() == "") {
+            WinForm.MessageBox({Title:"错误",Message:"请输入账号!"});
+            return;
+        }
+
+        if ($('#txtUserPwd').val() == "") {
+            //
+            WinForm.MessageBox({ Title: "错误", Message: "请输入账号!" });
+            return;
+        }
+
+        WinForm.ExternalCall("Login", $('#txtUserName').val(), $('#txtUserPwd').val());
+    });
+
     WinForm.NormalSize();
-
-    // alert(window);
 });
-
-function OnCloseCallBack(argv) {
-    alert(argv[0]);
-}

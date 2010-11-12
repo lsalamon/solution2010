@@ -15,14 +15,25 @@ var WinForm = $.extend({
     _CmdMessageBox: "MessageBox",
     MessageBox: function (option) {
         var _option = {
-            CallBack: "OnCloseCallBack",
-            Title: "提示",
-            Message: "是否退出?",
-            Icon: "16",
-            Button: "0"
+            CallBack: "",
+            Title: "",
+            Message: "",
+            Icon: "16", // None = 0,Error = 16,Hand = 16,Stop = 16,Question = 32,Exclamation = 48,Warning = 48,Information = 64,Asterisk = 64,
+            Button: "0" //OK = 0,OKCancel = 1,AbortRetryIgnore = 2,YesNoCancel = 3,YesNo = 4, RetryCancel = 5,
         };
-         $.extend(option,_option);
+        $.extend(_option,option);
         this.ExternalCall(this._CmdMessageBox, option);
+        //callback 的result
+        /*
+        None = 0,
+        OK = 1,
+        Cancel = 2,
+        Abort = 3,
+        Retry = 4,
+        Ignore = 5,
+        Yes = 6,
+        No = 7,
+        */
     },
     Close: function () { this.ExternalCall(this._CmdClose); },
     Move: function () { this.ExternalCall(this._CmdMove); },
@@ -42,11 +53,10 @@ var WinForm = $.extend({
     SetMaxSize: function (width, height) { this.ExternalCall(this._CmdSetMaxSize, width, height); },
     //调用窗口方法
     ExternalCall: function (action) {
-        var param = new Object();
-        param.Param = [];
+        var param = [];
         if (arguments.length > 1) {
             for (var i = 1; i < arguments.length; i++)
-                param.Param.push(arguments[i]);
+                param.push(arguments[i]);
         }
 
         try {

@@ -211,8 +211,7 @@ namespace STalk.UI
                 case "FormSetTitle": //设置标题
                     try
                     {
-                        JSONObject argv = JSONConvert.DeserializeObject(args.strArg);
-                        JSONArray param = (JSONArray)argv["Param"];
+                        JSONArray param = (JSONArray)JSONConvert.DeserializeArray(args.strArg);
                         base.Text = param[0].ToString();
                     }
                     catch
@@ -222,8 +221,7 @@ namespace STalk.UI
                 case "FormSetMaxSize": //设置标题
                     try
                     {
-                        JSONObject argv = JSONConvert.DeserializeObject(args.strArg);
-                        JSONArray param = (JSONArray)argv["Param"];
+                        JSONArray param = (JSONArray)JSONConvert.DeserializeArray(args.strArg);
                         int width = Convert.ToInt32(param[0]);
                         int height = Convert.ToInt32(param[1]);
                         this.MaximumSize = new Size(width, height);
@@ -235,8 +233,7 @@ namespace STalk.UI
                 case "FormSetMinSize": //设置标题
                     try
                     {
-                        JSONObject argv = JSONConvert.DeserializeObject(args.strArg);
-                        JSONArray param = (JSONArray)argv["Param"];
+                        JSONArray param = (JSONArray)JSONConvert.DeserializeArray(args.strArg);
                         int width = Convert.ToInt32(param[0]);
                         int height = Convert.ToInt32(param[1]);
                         this.MinimumSize = new Size(width, height);
@@ -248,13 +245,14 @@ namespace STalk.UI
                 case "MessageBox":
                     try
                     {
-                        JSONObject argv = JSONConvert.DeserializeObject(args.strArg);
-                        JSONArray param = (JSONArray)argv["Param"];
+                        JSONArray param = (JSONArray)JSONConvert.DeserializeArray(args.strArg);
                         JSONObject option = (JSONObject)param[0];
+                       // this.Focus();
                         DialogResult result = MessageBox.Show(option["Message"].ToString(),
                             option["Title"].ToString(),(MessageBoxButtons)Convert.ToInt16(option["Button"]),
                             (MessageBoxIcon)Convert.ToInt16(option["Icon"]));
-                        JSCall(option["CallBack"].ToString(), result.ToString());
+                        if(!string.IsNullOrEmpty(option["CallBack"].ToString()))
+                            JSCall(option["CallBack"].ToString(), result.ToString());
                     }
                     catch
                     {
@@ -280,7 +278,6 @@ namespace STalk.UI
             }
             //jObj.Add("Cmd", method);
            // jObj.Add("Param", argv);
-            //统一调用javascript 中的 ProcessCmd
             string script = string.Format("{0}({1})", method, JSONConvert.SerializeArray(param));
 
             //使用后台工作线程
@@ -321,10 +318,6 @@ namespace STalk.UI
             this.ResumeLayout(false);
 
         }
-
-
-
-
 
     }
 }
