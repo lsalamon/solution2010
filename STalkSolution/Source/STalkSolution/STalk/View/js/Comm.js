@@ -11,6 +11,9 @@ var WinForm = $.extend({
     _CmdSetMaxSize: "FormSetMaxSize",
     _CmdSetMinSize: "FormSetMinSize",
     _CmdShow: "FormShow",
+    _CmdMove: "FormMove",
+    Close: function () { this.ExternalCall(this._CmdClose); },
+    Move: function () { this.ExternalCall(this._CmdMove); },
     Show: function () { this.ExternalCall(this._CmdShow); },
     //设置大小
     SetSize: function (width, height) { this.ExternalCall(this._CmdSetSize, width, height); },
@@ -18,6 +21,9 @@ var WinForm = $.extend({
     SetTitle: function (title) {
         this.ExternalCall(this._CmdSetTitle, title);
     },
+    NormalSize: function () { this.ExternalCall(this._CmdNormalSize); },
+    MaxSize: function () { this.ExternalCall(this._CmdMaxSize); },
+    MinSize: function () { this.ExternalCall(this._CmdMinSize); },
     //设置最小Size
     SetMinSize: function (width, height) { this.ExternalCall(this._CmdSetMinSize, width, height); },
     //设置最大Size
@@ -34,6 +40,6 @@ var WinForm = $.extend({
         try {
             window.externalCall(null, action, $.toJSON(param)); //
         }
-        catch (e) { alert('Error Call') }
+        catch (e) { alert(e) }
     }
 });

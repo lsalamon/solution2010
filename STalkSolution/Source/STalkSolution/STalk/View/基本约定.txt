@@ -35,5 +35,4 @@ function ProcessCmd(json) {
 Comm.js文件里面有一个Winform操作类，里面有对应的函数
 function ExternalCall //调用winform方法,
 action是指令，
-第二个参数是CallBack 参数
 后面可以带任意参数，参数会以json的数组的形式传递给winform
