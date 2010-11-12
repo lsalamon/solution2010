@@ -2,9 +2,9 @@
     WinForm.SetTitle("STalk 登录");
     WinForm.SetMinSize(340, 245);
     WinForm.SetMaxSize(340, 245);
-    //WinForm.SetSize(340, 245);
 
     $('#Title').html("STalk 登录");
+
     //可移动区域不能与其他按钮或者click事件重叠否则click事件无效
     $('#Title').mousedown(function () {
         WinForm.Move();
@@ -21,6 +21,6 @@
     $('#CloseButton').click(function () {
         WinForm.Close();
     });
-
+    //窗口先minsize 然后加载完毕后再设置normalsize 防止页面
     WinForm.NormalSize();
 });
