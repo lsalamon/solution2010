@@ -62,7 +62,7 @@ namespace STalk.UI
             SetStyle(ControlStyles.AllPaintingInWmPaint, true); // 禁止擦除背景.
             SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
             SetStyle(ControlStyles.SupportsTransparentBackColor, true);
-          //  base.TransparencyKey = Color.White;
+            base.TransparencyKey = Color.White;
         }
 
         protected override void OnLoad(EventArgs e)

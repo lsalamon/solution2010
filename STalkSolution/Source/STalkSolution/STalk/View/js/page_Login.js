@@ -48,7 +48,5 @@ function OnSocketError() {
 }
 
 function OnAuthError() {
-   // alert(param);
-  //  WinForm.MessageBox({ Title: "登录失败", Message: param[0] });
     $('#btnLogin').attr("disabled", false);
 }

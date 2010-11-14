@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web;
 using System.Collections.Generic;
 using System.Text;
 using System.Security.Cryptography;
@@ -33,6 +34,11 @@ namespace STalkServer.Lib
                 sb.Append(b.ToString("x2"));
             }
             return sb.ToString();
+        }
+
+        public static string EncryptMD5(string str)
+        {
+            return System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(str, "MD5");
         }
     }
 }
