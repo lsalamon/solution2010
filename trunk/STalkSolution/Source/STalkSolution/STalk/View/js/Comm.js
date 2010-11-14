@@ -22,7 +22,7 @@ var WinForm = $.extend({
             Button: "0" //OK = 0,OKCancel = 1,AbortRetryIgnore = 2,YesNoCancel = 3,YesNo = 4, RetryCancel = 5,
         };
         $.extend(_option,option);
-        this.ExternalCall(this._CmdMessageBox, option);
+        this.ExternalCall(this._CmdMessageBox, _option);
         //callback 的result
         /*
         None = 0,
