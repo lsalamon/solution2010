@@ -63,7 +63,7 @@ namespace STalk
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-            WindowState = FormWindowState.Minimized;
+           // WindowState = FormWindowState.Minimized;
         }
 
         protected override void OnExternalCall(WebKit.JavaScriptExternalEventArgs args)
@@ -91,7 +91,7 @@ namespace STalk
                 m_Xmpp.Username = userName;
                 m_Xmpp.Server = "im1.Stalk.com";
                 m_Xmpp.Port = 5222;
-                m_Xmpp.Password = userPwd;
+                m_Xmpp.Password = Function.EncryptMD5(userPwd).ToUpper();
                 m_Xmpp.Resource = "STalkClient";
                 m_Xmpp.AutoResolveConnectServer = true;
                 m_Xmpp.ConnectServer = null;
@@ -100,6 +100,7 @@ namespace STalk
             }
             catch
             { 
+
             }
         }
 

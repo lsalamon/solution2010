@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Web;
 
 namespace STalk.Lib
 {
@@ -16,6 +17,11 @@ namespace STalk.Lib
         {
             string ViewPath = AppDomain.CurrentDomain.BaseDirectory + "View\\";
             return string.Concat(ViewPath, fileName);
+        }
+
+        public static string EncryptMD5(string str)
+        {
+            return System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(str, "MD5");
         }
     }
 }
