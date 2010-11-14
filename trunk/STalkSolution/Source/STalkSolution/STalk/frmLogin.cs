@@ -23,12 +23,22 @@ namespace STalk
             m_Xmpp = xmpp;
             m_Xmpp.OnLogin += new ObjectHandler(m_Xmpp_OnLogin);
             m_Xmpp.OnAuthError += new XmppElementHandler(m_Xmpp_OnAuthError);
+            m_Xmpp.OnSocketError += new ErrorHandler(m_Xmpp_OnSocketError);
             base.Browser.Url = new System.Uri(m_UrlFile);
+        }
+
+        void m_Xmpp_OnSocketError(object sender, Exception ex)
+        {
+            //这里可能要处理连接其他服务器,可能有好多服务器
+            JSCall("OnSocketError");
+            MessageBox.Show("无法连接服务器!", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         void m_Xmpp_OnAuthError(object sender, XMPPProtocol.Xml.Dom.Element e)
         {
-            //throw new NotImplementedException();
+            XMPPProtocol.Protocol.client.IQ iq = (XMPPProtocol.Protocol.client.IQ)e;
+            MessageBox.Show(iq.Error.Message, "登录失败", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            JSCall("OnAuthError");
         }
 
         protected override void OnClosing(CancelEventArgs e)
@@ -78,7 +88,15 @@ namespace STalk
                 string userName = param[0].ToString();
                 string userPwd = param[1].ToString();
 
-
+                m_Xmpp.Username = userName;
+                m_Xmpp.Server = "im1.Stalk.com";
+                m_Xmpp.Port = 5222;
+                m_Xmpp.Password = userPwd;
+                m_Xmpp.Resource = "STalkClient";
+                m_Xmpp.AutoResolveConnectServer = true;
+                m_Xmpp.ConnectServer = null;
+                m_Xmpp.SocketConnectionType = XMPPProtocol.net.SocketConnectionType.Direct;
+                m_Xmpp.Open();
             }
             catch
             { 

@@ -111,6 +111,9 @@
     <Content Include="View\css\page_Login.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="View\EasyUI.htm">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="View\js\Comm.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

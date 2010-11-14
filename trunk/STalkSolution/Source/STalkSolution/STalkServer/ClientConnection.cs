@@ -160,14 +160,16 @@ namespace STalkServer
             }
 
             //这里需要离线逻辑处理
-            ClientFactory.RemoveClient(m_JID.ToString());
+            if (m_JID != null)
+            {
+                ClientFactory.RemoveClient(m_JID.ToString());
 
-            //update数据库
-            m_User.Server = string.Empty;
-            DataFactory.UserProvider.UpdateUserLoginInfo(m_User);
+                //update数据库
+                m_User.Server = string.Empty;
+                DataFactory.UserProvider.UpdateUserLoginInfo(m_User);
 
-            //通知好友已经下线
-            
+                //通知好友已经下线
+            }   
         }
 
         #region StreamParser 事件
