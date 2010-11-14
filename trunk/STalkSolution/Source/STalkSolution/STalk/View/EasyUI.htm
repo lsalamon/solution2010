@@ -1,0 +1,49 @@
+﻿<!DOCTYPE HTML>
+<html>
+	<head>
+		<title></title>
+        <link type="text/css" href="css/base.css" rel="stylesheet" />
+        <link rel="stylesheet" type="text/css" href="js/easyui/themes/default/easyui.css"/>
+	    <link rel="stylesheet" type="text/css" href="js/easyui/themes/icon.css"/>
+        <script type="text/javascript" src="js/jquery-1.4.3.min.js"></script>
+        <script type="text/javascript" src="js/jquery.json-2.2.min.js"></script>
+	    <script type="text/javascript" src="js/easyui/jquery.easyui.min.js"></script>
+        <script type="text/javascript" src="js/Comm.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#w').window({
+                    title: 'New Title',
+                    width: $(document).width(),
+                    modal: false,
+                    collapsible: false,
+                    shadow: false,
+                     maximizable: false,
+                    closed: false,
+                    top: 0,
+                    left: 0,
+                    height: $(document).height(),
+                    onBeforeClose: function () {
+                        //这里放winform控制
+                        return false;
+                    },
+                    onMove: function (l, t) {
+                        alert(l);
+                    },
+                    onResize: function (width, height) {
+                        WinForm.SetSize(width, height);
+                        $('#w').panel('move', {
+                            left: 0,
+                            top: 0
+                        });
+                    }
+                });
+            });
+
+        </script>
+	</head>
+	<body style="height:100%;width:100%;overflow:hidden;border:none;">
+	<div id="w" class="easyui-window" title="My Window" iconCls="icon-save" style="width:200px;height:200px;background: #fafafa;">
+		ok
+	</div>
+	</body>
+</html>
