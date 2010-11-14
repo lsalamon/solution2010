@@ -47,7 +47,7 @@ ORDER BY dbo.Tb_UserGroup.SortNum DESC";
 
                 result.Add(ufInfo);
             }
-
+            dr.Close();
             return result;
         }
 

@@ -16,7 +16,7 @@ namespace STalk
             InitializeComponent();
             this.Width = 500;
             this.Height = 500;
-            base.Browser.Url = new Uri(AppDomain.CurrentDomain.BaseDirectory + "View\\Test.htm");
+            base.Browser.Url = new Uri(AppDomain.CurrentDomain.BaseDirectory + "View\\EasyUI.htm");
         }
 
         protected override void OnExternalCall(WebKit.JavaScriptExternalEventArgs args)

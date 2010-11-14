@@ -39,7 +39,7 @@ namespace STalk.MSSQLProvider
                     UserID = row.GetInt32("UserID")
                 });
             }
-
+            dr.Close();
             return result;
         }
 

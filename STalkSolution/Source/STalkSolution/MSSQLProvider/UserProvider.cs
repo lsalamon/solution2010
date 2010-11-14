@@ -40,7 +40,7 @@ namespace STalk.MSSQLProvider
                 user.UserName = row.GetString("UserName");
                 user.UserPwd = row.GetString("UserPwd");
             }
-
+            dr.Close();
             return user;
         }
 
@@ -72,7 +72,7 @@ namespace STalk.MSSQLProvider
                 user.UserName = row.GetString("UserName");
                 user.UserPwd = row.GetString("UserPwd");
             }
-
+            dr.Close();
             return user;
         }
 

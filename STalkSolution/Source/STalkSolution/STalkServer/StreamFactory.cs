@@ -61,9 +61,9 @@ namespace STalkServer
                 StreamInfo sInfo = (StreamInfo)m_StreamQueue.Dequeue();
                 ProcessStreamInfo(sInfo);
             }
-            catch
-            { 
-
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex);
             }
         }
 
@@ -179,6 +179,7 @@ namespace STalkServer
                             iq.SwitchDirection();
                             iq.Type = IqType.error;
                             iq.Query = null;
+                            iq.Error = new XMPPProtocol.Protocol.client.Error();
                             iq.Error.Message = "账户还没激活！";
                             sInfo.Client.Send(iq);
                         }
@@ -187,6 +188,7 @@ namespace STalkServer
                             iq.SwitchDirection();
                             iq.Type = IqType.error;
                             iq.Query = null;
+                            iq.Error = new XMPPProtocol.Protocol.client.Error();
                             iq.Error.Message = "账户被禁止登陆！";
                             sInfo.Client.Send(iq);
                         }
@@ -220,7 +222,8 @@ namespace STalkServer
                         iq.SwitchDirection();
                         iq.Type = IqType.error;
                         iq.Query = null;
-                        iq.Error.Message = "用户名或者密码错误！";
+                        iq.Error = new XMPPProtocol.Protocol.client.Error();
+                        iq.Error.Message = "登录验证失败!";
                         sInfo.Client.Send(iq);
                     }
                     break;
