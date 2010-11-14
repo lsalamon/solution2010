@@ -17,7 +17,7 @@
                     modal: false,
                     collapsible: false,
                     shadow: false,
-                     maximizable: false,
+                    maximizable: false,
                     closed: false,
                     top: 0,
                     left: 0,
@@ -29,6 +29,7 @@
                     onMove: function (l, t) {
                         alert(l);
                     },
+                  //  resizable:{ handles: "e, s,ne, se" }),
                     onResize: function (width, height) {
                         WinForm.SetSize(width, height);
                         $('#w').panel('move', {
@@ -38,7 +39,8 @@
                     }
                 });
             });
-
+          //  $('#w').resizable({ handles: "e, s,ne, se" });
+           // alert($('#w').data);
         </script>
 	</head>
 	<body style="height:100%;width:100%;overflow:hidden;border:none;">
