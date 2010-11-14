@@ -24,18 +24,31 @@
 
     $('#btnLogin').click(function () {
         if ($('#txtUserName').val() == "") {
-            WinForm.MessageBox({Title:"错误",Message:"请输入账号!"});
+            WinForm.MessageBox({ Title: "错误", Message: "请输入账号!" });
+            $('#txtUserName').focus();
             return;
         }
 
         if ($('#txtUserPwd').val() == "") {
-            //
-            WinForm.MessageBox({ Title: "错误", Message: "请输入账号!" });
+            WinForm.MessageBox({ Title: "错误", Message: "请输入密码!" });
+            $('#txtUserPwd').focus();
             return;
         }
-
+        $('#btnLogin').attr("disabled", true);
         WinForm.ExternalCall("Login", $('#txtUserName').val(), $('#txtUserPwd').val());
     });
 
     WinForm.NormalSize();
+
+    alert(window.webkitNotifications);
 });
+
+function OnSocketError() {
+    $('#btnLogin').attr("disabled", false);
+}
+
+function OnAuthError() {
+   // alert(param);
+  //  WinForm.MessageBox({ Title: "登录失败", Message: param[0] });
+    $('#btnLogin').attr("disabled", false);
+}
