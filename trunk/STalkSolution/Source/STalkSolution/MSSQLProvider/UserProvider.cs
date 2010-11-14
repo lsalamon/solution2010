@@ -27,20 +27,22 @@ namespace STalk.MSSQLProvider
 
             parms[0].Value = userName;
 
-            SqlDataReader dr = SqlHelper.ExecuteReader(connString, CommandType.Text, sql, parms);
-             RowHelper row=new RowHelper(dr);
-            if (row.Read())
+            using (SqlDataReader dr = SqlHelper.ExecuteReader(connString, CommandType.Text, sql, parms))
             {
-                user.UserID = row.GetInt32("UserID");
-                user.LastLoginIP = row.GetString("LastLoginIP");
-                user.LastLoginTime = row.GetDateTime("LastLoginTime");
-                user.RegTime = row.GetDateTime("RegTime");
-                user.Server = row.GetString("Server");
-                user.Status = row.GetUInt32("Status");
-                user.UserName = row.GetString("UserName");
-                user.UserPwd = row.GetString("UserPwd");
+                RowHelper row = new RowHelper(dr);
+                if (row.Read())
+                {
+                    user.UserID = row.GetInt32("UserID");
+                    user.LastLoginIP = row.GetString("LastLoginIP");
+                    user.LastLoginTime = row.GetDateTime("LastLoginTime");
+                    user.RegTime = row.GetDateTime("RegTime");
+                    user.Server = row.GetString("Server");
+                    user.Status = row.GetUInt32("Status");
+                    user.UserName = row.GetString("UserName");
+                    user.UserPwd = row.GetString("UserPwd");
+                }
+                dr.Close();
             }
-            dr.Close();
             return user;
         }
 
@@ -59,20 +61,22 @@ namespace STalk.MSSQLProvider
 
             parms[0].Value = userID;
 
-            SqlDataReader dr = SqlHelper.ExecuteReader(connString, CommandType.Text, sql, parms);
-            RowHelper row = new RowHelper(dr);
-            if (row.Read())
+            using (SqlDataReader dr = SqlHelper.ExecuteReader(connString, CommandType.Text, sql, parms))
             {
-                user.UserID = row.GetInt32("UserID");
-                user.LastLoginIP = row.GetString("LastLoginIP");
-                user.LastLoginTime = row.GetDateTime("LastLoginTime");
-                user.RegTime = row.GetDateTime("RegTime");
-                user.Server = row.GetString("Server");
-                user.Status = row.GetUInt32("Status");
-                user.UserName = row.GetString("UserName");
-                user.UserPwd = row.GetString("UserPwd");
+                RowHelper row = new RowHelper(dr);
+                if (row.Read())
+                {
+                    user.UserID = row.GetInt32("UserID");
+                    user.LastLoginIP = row.GetString("LastLoginIP");
+                    user.LastLoginTime = row.GetDateTime("LastLoginTime");
+                    user.RegTime = row.GetDateTime("RegTime");
+                    user.Server = row.GetString("Server");
+                    user.Status = row.GetUInt32("Status");
+                    user.UserName = row.GetString("UserName");
+                    user.UserPwd = row.GetString("UserPwd");
+                }
+                dr.Close();
             }
-            dr.Close();
             return user;
         }
 

@@ -27,19 +27,21 @@ namespace STalk.MSSQLProvider
 
             parms[0].Value = userID;
 
-            SqlDataReader dr = SqlHelper.ExecuteReader(connString, CommandType.Text, sql, parms);
-            RowHelper row = new RowHelper(dr);
-            while (row.Read())
+            using (SqlDataReader dr = SqlHelper.ExecuteReader(connString, CommandType.Text, sql, parms))
             {
-                result.Add(new UserGroup()
+                RowHelper row = new RowHelper(dr);
+                while (row.Read())
                 {
-                    GroupName = row.GetString("GroupName"),
-                    ID = row.GetInt32("ID"),
-                    SortNum = row.GetInt32("SortNum"),
-                    UserID = row.GetInt32("UserID")
-                });
+                    result.Add(new UserGroup()
+                    {
+                        GroupName = row.GetString("GroupName"),
+                        ID = row.GetInt32("ID"),
+                        SortNum = row.GetInt32("SortNum"),
+                        UserID = row.GetInt32("UserID")
+                    });
+                }
+                dr.Close();
             }
-            dr.Close();
             return result;
         }
 

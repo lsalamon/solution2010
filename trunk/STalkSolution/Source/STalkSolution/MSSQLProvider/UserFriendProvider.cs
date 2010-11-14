@@ -32,22 +32,24 @@ ORDER BY dbo.Tb_UserGroup.SortNum DESC";
 
             parms[0].Value = userID;
 
-            SqlDataReader dr = SqlHelper.ExecuteReader(connString, CommandType.Text, sql, parms);
-            RowHelper row = new RowHelper(dr);
-            while (row.Read())
+            using (SqlDataReader dr = SqlHelper.ExecuteReader(connString, CommandType.Text, sql, parms))
             {
-                UserFirend ufInfo = new UserFirend();
-                ufInfo.ID = row.GetInt32("ID");
-                ufInfo.FriendID = row.GetInt32("FriendID");
-                ufInfo.GroupID = row.GetInt32("GroupID");
-                ufInfo.GroupName = row.GetString("GroupName");
-                ufInfo.NickName = string.IsNullOrEmpty(row.GetString("NickName")) ? row.GetString("UNickName") : row.GetString("NickName");
-                ufInfo.Subscription = row.GetString("Subscription");
-                ufInfo.UserID = row.GetInt32("UserID");
+                RowHelper row = new RowHelper(dr);
+                while (row.Read())
+                {
+                    UserFirend ufInfo = new UserFirend();
+                    ufInfo.ID = row.GetInt32("ID");
+                    ufInfo.FriendID = row.GetInt32("FriendID");
+                    ufInfo.GroupID = row.GetInt32("GroupID");
+                    ufInfo.GroupName = row.GetString("GroupName");
+                    ufInfo.NickName = string.IsNullOrEmpty(row.GetString("NickName")) ? row.GetString("UNickName") : row.GetString("NickName");
+                    ufInfo.Subscription = row.GetString("Subscription");
+                    ufInfo.UserID = row.GetInt32("UserID");
 
-                result.Add(ufInfo);
+                    result.Add(ufInfo);
+                }
+                dr.Close();
             }
-            dr.Close();
             return result;
         }
 
