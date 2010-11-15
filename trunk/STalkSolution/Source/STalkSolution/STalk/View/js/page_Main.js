@@ -3,12 +3,16 @@
     WinForm.SetSize(220, 480);
     InitWin();
     InitLayout();
+
+    //初始好友树
+
     WinForm.Show();
 });
 
-
 function InitLayout() {
     $('#frmMain').layout();
+    $('#frmTop').layout();
+    $('#frmCenter').layout();
 }
 
 function InitWin() {
@@ -39,7 +43,7 @@ function InitWin() {
                 left: 0,
                 top: 0
             });
-            $('#frmMain').layout();
+            InitLayout();
         }
     });
 
