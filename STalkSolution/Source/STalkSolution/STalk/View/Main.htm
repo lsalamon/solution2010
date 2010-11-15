@@ -14,10 +14,30 @@
 	</head>
 	<body onselectstart="return false;">
     <div id="win" title="STalk">
-        <div id="frmMain" style="width:100%;height:100%;">  
-            <div region="north" split="false" border="false" style="height:70px;background:#99FF00;">ttt</div>  
-            <div region="south"  split="false" border="false"  style="height:60px;background:#FFFF66;">bbb</div>
-            <div region="center" split="false" border="false"  style="background:#eee;">mmm</div>  
+        <div id="frmMain" style="width:100%;height:100%;">
+            <!--顶部固定-->
+            <div region="north" split="false" border="false" style="height:70px;background:#99FF00;">
+                <div id="frmTop"  style="height:70px;">
+                    <div region="west" split="false" border="false" style="height:70px;width:60px;">头像</div>
+                    <div region="center" split="false" border="false"  style="height:20px; background:#eee;">名字状态签名</div>  
+                    <div region="south" split="false" border="false" style="height:20px;width:100%;background-color:Olive;">搜索</div>
+                </div>
+            </div>
+             <!--中间自适应-->
+            <div region="center" split="false" border="false"  style="background:#eee;">
+                <!--中间分左右2栏 左边固定-->
+                <div id="frmCenter" style="width:100%;height:100%;">
+                    <div region="west" split="false" border="false" style="height:100%;width:35px; background-color:Aqua;">各种tab</div>
+
+                    <div id="StalkFriendList" region="center" split="false" border="false" style="height:100%;width:100%;background-color:Fuchsia;">
+                        <ul id="STalkFList"></ul>
+                    </div>
+                    <!--切换不同的列表-->
+                    <div region="center" split="false" border="false" style="height:100%;width:100%;background-color:Fuchsia; display:none;">列表2</div>
+                </div>
+            </div>
+            <!--底部固定-->
+            <div region="south"  split="false" border="false"  style="height:50px;background:#FFFF66;">底部菜单，查找，添加</div>
         </div>
 	</div>
 	</body>
