@@ -3,23 +3,20 @@
 	<head>
 		<title></title>
         <link type="text/css" href="css/base.css" rel="stylesheet" />
+        <link rel="stylesheet" type="text/css" href="js/easyui/themes/default/easyui.css"/>
+	    <link rel="stylesheet" type="text/css" href="js/easyui/themes/icon.css"/>
         <link type="text/css" href="css/page_Login.css" rel="stylesheet" />
         <script type="text/javascript" src="js/jquery-1.4.3.min.js"></script>
         <script type="text/javascript" src="js/jquery.json-2.2.min.js"></script>
+        <script type="text/javascript" src="js/easyui/jquery.easyui.min.js"></script>
         <script type="text/javascript" src="js/Comm.js"></script>
         <script type="text/javascript" src="js/page_Login.js"></script>
 	</head>
 	<body>
-        <div id="WebForm">
-        <div id="TitleBar">
-            <div id="Title">title</div>
-            <div id="CloseButton">X</div>
-            <div id="MaxButton">口</div>
-            <div id="MinButton">_</div>
-        </div><br />
-        账号:<input  type="text" id="txtUserName" value="" /><br />
+    <div id="win" title="STalk" iconCls="icon-save" style="width:200px;height:200px;background: #fafafa;">
+		 账号:<input  type="text" id="txtUserName" value="" /><br />
         密码:<input type="password" id="txtUserPwd" value="" /><br />
         <button id="btnLogin">登录</button>
-        </div>
+	</div>
 	</body>
 </html>
