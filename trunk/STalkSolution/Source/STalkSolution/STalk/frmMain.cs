@@ -47,14 +47,13 @@ namespace STalk
         void m_Xmpp_OnSocketError(object sender, Exception ex)
         {
             //throw new NotImplementedException();
+          //  MessageBox.Show("网络断开");
         }
 
         void m_Xmpp_OnError(object sender, Exception ex)
         {
             //throw new NotImplementedException();
         }
-
-        
 
         void m_Xmpp_OnIq(object sender, XMPPProtocol.Protocol.client.IQ iq)
         {

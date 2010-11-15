@@ -51,104 +51,16 @@ namespace STalk.UI
         #region winform初始化
         private void InitBaseForm()
         {
-          //  base.ClientSize = new Size(base.ClientSize.Width + 10, base.ClientSize.Height + 10);
             base.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            base.Width = 300;
-            base.Height = 300;
-            base.MinimumSize = new Size(100, 100);
-           // base.BackColor = Color.FromArgb(34, 108, 138); //#226C8A
-           // this.DoubleBuffered = true;//设置本窗体
+            base.BackColor = Color.FromArgb(255, 255, 254); //#226C8A
             SetStyle(ControlStyles.UserPaint, true);
             SetStyle(ControlStyles.AllPaintingInWmPaint, true); // 禁止擦除背景.
             SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
             SetStyle(ControlStyles.SupportsTransparentBackColor, true);
-            base.TransparencyKey = Color.FromArgb(255,255,254);
+            base.TransparencyKey = Color.FromArgb(255, 255, 254);
+            base.Opacity = 0.0d;
         }
 
-        protected override void OnLoad(EventArgs e)
-        {
-            base.OnLoad(e);
-        }
-
-        //protected override void WndProc(ref Message m)
-        //{
-        //    switch (m.Msg)
-        //    {
-        //        case Win32.WM_NCPAINT:
-        //            break;
-        //        case Win32.WM_NCACTIVATE:
-        //            if (m.WParam == (IntPtr)0)
-        //            {
-        //                m.Result = (IntPtr)1;
-        //            }
-        //            if (m.WParam == (IntPtr)2097152)
-        //            {
-        //                m.Result = (IntPtr)1;
-        //            }
-        //            break;
-        //        case Win32.WM_NCCALCSIZE:
-        //            break;
-        //        case Win32.WM_NCHITTEST:
-        //            //base.WndProc(ref m);
-        //            Point vPoint = new Point((int)m.LParam & 0xFFFF, (int)m.LParam >> 16 & 0xFFFF);
-        //            vPoint = PointToClient(vPoint);
-        //            if (this.WindowState == FormWindowState.Normal)
-        //            {
-        //                if (vPoint.X <= 3)
-        //                {
-        //                    if (vPoint.Y <= 3)
-        //                        m.Result = (IntPtr)Win32.HTTOPLEFT;
-        //                    else if (vPoint.Y >= Height - 3)
-        //                        m.Result = (IntPtr)Win32.HTBOTTOMLEFT;
-        //                    else
-        //                        m.Result = (IntPtr)Win32.HTLEFT;
-        //                }
-        //                else if (vPoint.X >= Width - 3)
-        //                {
-        //                    if (vPoint.Y <= 3)
-        //                        m.Result = (IntPtr)Win32.HTTOPRIGHT;
-        //                    else if (vPoint.Y >= Height - 3)
-        //                        m.Result = (IntPtr)Win32.HTBOTTOMRIGHT;
-        //                    else
-        //                        m.Result = (IntPtr)Win32.HTRIGHT;
-        //                }
-        //                else if (vPoint.Y <= 3)
-        //                {
-        //                    m.Result = (IntPtr)Win32.HTTOP;
-        //                }
-        //                else if (vPoint.Y >= Height - 3)
-        //                    m.Result = (IntPtr)Win32.HTBOTTOM;
-        //            }
-        //            break;
-        //        default:
-        //            base.WndProc(ref m);
-        //            break;
-        //    }
-        //}
-
-        protected override void OnFormClosed(FormClosedEventArgs e)
-        {
-            base.OnFormClosed(e);
-        }
-
-        protected override void OnSizeChanged(EventArgs e)
-        {
-            //调整角度
-            //IntPtr regionHandle = CreateRoundRectRgn(0, 0, Width, Height, 10, 10);
-            //Region roundRegion = null;
-            //roundRegion = Region.FromHrgn(regionHandle);
-            //SetWindowRgn(Handle, regionHandle, true);
-
-            base.OnSizeChanged(e);
-           // m_WebBrowser.Width = base.Width - (BORDER_SIZE * 2);
-           // m_WebBrowser.Height = base.Height - (BORDER_SIZE * 2);
-
-            /* 不要删除！！
-            IntPtr WKregionHandle = CreateRoundRectRgn(0, 0, m_WebBrowser.Width, m_WebBrowser.Height, 6, 6);
-            Region WKroundRegion = null;
-            WKroundRegion = Region.FromHrgn(WKregionHandle);
-            SetWindowRgn(m_WebBrowser.Handle, WKregionHandle, true);*/
-        }
         #endregion
 
         #region webkit初始化
@@ -168,11 +80,8 @@ namespace STalk.UI
             m_WebBrowser.TabIndex = 0;
             m_WebBrowser.AllowDownloads = false;
             m_WebBrowser.AllowNewWindows = false;
-            m_WebBrowser.Width = base.Width - (BORDER_SIZE * 2);
-            m_WebBrowser.Height = base.Height - (BORDER_SIZE * 2);
             m_WebBrowser.BorderStyle = BorderStyle.None;
             m_WebBrowser.HorizontalScroll.Visible = false;
-         //   m_WebBrowser.BackColor = Color.FromArgb(255, 255, 254);
             m_WebBrowser.VerticalScroll.Visible = false;
             m_WebBrowser.DocumentCompleted += new WebBrowserDocumentCompletedEventHandler(m_WebBrowser_DocumentCompleted);
             m_WebBrowser.JavaScriptExternalCall += new JavaScriptExternalCallEventHandler(m_WebBrowser_JavaScriptExternalCall);
@@ -182,8 +91,7 @@ namespace STalk.UI
 
         void m_WebBrowser_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
-            //this.Show();
-            
+
         }
 
         void m_WebBrowser_JavaScriptExternalCall(object sender, JavaScriptExternalEventArgs args)
@@ -191,7 +99,9 @@ namespace STalk.UI
             switch (args.strId)
             {
                 case "FormShow":
-                    this.Show();
+                  //  this.Show();
+                    //m_WebBrowser.Visible = true;
+                    base.Opacity = 100;
                     break;
                 case "FormClose":
                     this.Close();

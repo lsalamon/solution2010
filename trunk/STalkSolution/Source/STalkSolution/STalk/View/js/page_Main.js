@@ -2,7 +2,14 @@
     WinForm.SetTitle("STalk");
     WinForm.SetSize(220, 480);
     InitWin();
+    InitLayout();
+    WinForm.Show();
 });
+
+
+function InitLayout() {
+    $('#frmMain').layout();
+}
 
 function InitWin() {
     $('#win').window({
@@ -15,8 +22,6 @@ function InitWin() {
         closed: false,
         top: 0,
         left: 0,
-        //  resizable: false,
-      resizeHandle:"n",
         draggable: false,
         height: $(document).height(),
         tools: [{ iconCls: 'panel-tool-min',
@@ -34,6 +39,7 @@ function InitWin() {
                 left: 0,
                 top: 0
             });
+            $('#frmMain').layout();
         }
     });
 
