@@ -172,6 +172,7 @@ namespace STalk.UI
             m_WebBrowser.Height = base.Height - (BORDER_SIZE * 2);
             m_WebBrowser.BorderStyle = BorderStyle.None;
             m_WebBrowser.HorizontalScroll.Visible = false;
+         //   m_WebBrowser.BackColor = Color.FromArgb(255, 255, 254);
             m_WebBrowser.VerticalScroll.Visible = false;
             m_WebBrowser.DocumentCompleted += new WebBrowserDocumentCompletedEventHandler(m_WebBrowser_DocumentCompleted);
             m_WebBrowser.JavaScriptExternalCall += new JavaScriptExternalCallEventHandler(m_WebBrowser_JavaScriptExternalCall);
@@ -263,7 +264,6 @@ namespace STalk.UI
                     {
                         JSONArray param = (JSONArray)JSONConvert.DeserializeArray(args.strArg);
                         JSONObject option = (JSONObject)param[0];
-                       // this.Focus();
                         DialogResult result = MessageBox.Show(option["Message"].ToString(),
                             option["Title"].ToString(),(MessageBoxButtons)Convert.ToInt16(option["Button"]),
                             (MessageBoxIcon)Convert.ToInt16(option["Icon"]));

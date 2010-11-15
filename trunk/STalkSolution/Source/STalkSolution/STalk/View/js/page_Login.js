@@ -1,30 +1,12 @@
 ﻿$(document).ready(function () {
-    WinForm.SetTitle("STalk 登录");
+    WinForm.SetTitle("STalk");
     WinForm.SetMinSize(340, 245);
     WinForm.SetMaxSize(340, 245);
     InitWin();
-    //    $('#Title').html("STalk 登录");
-
-    //    //可移动区域不能与其他按钮或者click事件重叠否则click事件无效
-    //    $('#Title').mousedown(function () {
-    //        WinForm.Move();
-    //    });
-
-    //    $('#MinButton').click(function () {
-    //        WinForm.MinSize();
-    //    });
-
-    //    $('#MaxButton').click(function () {
-
-    //    });
-
-    //    $('#CloseButton').click(function () {
-    //        WinForm.Close();
-    //    });
-
+    
     $('#btnLogin').click(function () {
         if ($('#txtUserName').val() == "") {
-            WinForm.MessageBox({ Title: "错误", Message: "请输入账号!" });
+            WinForm.MessageBox({ Title: "错误", Message: "请输入账号!"});
             $('#txtUserName').focus();
             return;
         }
@@ -34,7 +16,10 @@
             $('#txtUserPwd').focus();
             return;
         }
+        $('#txtUserName').attr("disabled", true);
+        $('#txtUserPwd').attr("disabled", true);
         $('#btnLogin').attr("disabled", true);
+        //设置输入框disabled
         WinForm.ExternalCall("Login", $('#txtUserName').val(), $('#txtUserPwd').val());
     });
 
@@ -57,11 +42,13 @@ function InitWin() {
         resizable: false,
         draggable: false,
         height: $(document).height(),
-        onBeforeClose: function () {
-            //这里放winform控制
-            alert('s');
-            return false;
-        },
+        tools: [{ iconCls: 'panel-tool-min',
+            handler: function () { WinForm.MinSize(); }
+        }, { iconCls: 'panel-tool-close',
+            handler: function () { WinForm.Close(); }
+        }],
+        closable: false,
+        minimizable: false,
         onResize: function (width, height) {
             WinForm.SetSize(width, height);
             $('#win').panel('move', {
@@ -73,13 +60,23 @@ function InitWin() {
 
     //设置拖动
     var header = $('#win').panel("header");
-    $(header).mousedown(function (e) { alert($(e.target).hasClass('panel-header')); return false; })
+    $(header).mousedown(function (e) {
+        if ($(e.target).hasClass('panel-title')) {
+            WinForm.Move();
+        } 
+    })
 }
 
 function OnSocketError() {
+    //设置输入框disabled=false
+    $('#txtUserName').attr("disabled", false);
+    $('#txtUserPwd').attr("disabled", false);
     $('#btnLogin').attr("disabled", false);
 }
 
 function OnAuthError() {
+    //设置输入框disabled=false
+    $('#txtUserName').attr("disabled", false);
+    $('#txtUserPwd').attr("disabled", false);
     $('#btnLogin').attr("disabled", false);
 }

@@ -194,24 +194,24 @@
             handle: '>div.panel-header>div.panel-title',
             disabled: state.options.draggable == false,
             onStartDrag: function (e) {
-                				if (state.mask) state.mask.css('z-index', $.fn.window.defaults.zIndex++);
-                				if (state.shadow) state.shadow.css('z-index', $.fn.window.defaults.zIndex++);
-                				state.window.css('z-index', $.fn.window.defaults.zIndex++);
-                				
-                				if (!state.proxy){
-                					state.proxy = $('<div class="window-proxy"></div>').insertAfter(state.window);
-                				}
-                				state.proxy.css({
-                					display:'none',
-                					zIndex: $.fn.window.defaults.zIndex++,
-                					left: e.data.left,
-                					top: e.data.top,
-                					width: ($.boxModel==true ? (state.window.outerWidth()-(state.proxy.outerWidth()-state.proxy.width())) : state.window.outerWidth()),
-                					height: ($.boxModel==true ? (state.window.outerHeight()-(state.proxy.outerHeight()-state.proxy.height())) : state.window.outerHeight())
-                				});
-                				setTimeout(function(){
-                					if (state.proxy) state.proxy.show();
-                				}, 500);
+                if (state.mask) state.mask.css('z-index', $.fn.window.defaults.zIndex++);
+                if (state.shadow) state.shadow.css('z-index', $.fn.window.defaults.zIndex++);
+                state.window.css('z-index', $.fn.window.defaults.zIndex++);
+
+                if (!state.proxy) {
+                    state.proxy = $('<div class="window-proxy"></div>').insertAfter(state.window);
+                }
+                state.proxy.css({
+                    display: 'none',
+                    zIndex: $.fn.window.defaults.zIndex++,
+                    left: e.data.left,
+                    top: e.data.top,
+                    width: ($.boxModel == true ? (state.window.outerWidth() - (state.proxy.outerWidth() - state.proxy.width())) : state.window.outerWidth()),
+                    height: ($.boxModel == true ? (state.window.outerHeight() - (state.proxy.outerHeight() - state.proxy.height())) : state.window.outerHeight())
+                });
+                setTimeout(function () {
+                    if (state.proxy) state.proxy.show();
+                }, 500);
 
             },
             onDrag: function (e) {
@@ -219,7 +219,7 @@
                     display: 'block',
                     left: e.data.left,
                     top: e.data.top
-                                });
+                });
 
                 return false;
             },
@@ -228,11 +228,12 @@
                 state.options.top = e.data.top;
                 $(target).window('move');
                 state.proxy.remove();
-                                state.proxy = null;
+                state.proxy = null;
             }
         });
-
+      //  alert(state.options.resizeHandle);
         state.window.resizable({
+            //handles: state.options.resizeHandle,
             disabled: state.options.resizable == false,
             onStartResize: function (e) {
                 if (!state.proxy) {
@@ -366,7 +367,11 @@
         resizable: true,
         shadow: true,
         modal: false,
-
+        resizeHandle: "n, e, s, w, ne, se, sw, nw, all",
+        minWidth: 10,
+        minHeight: 10,
+        maxWidth: 10000,
+        maxHeight: 10000,
         // window's property which difference from panel
         title: 'New Window',
         collapsible: true,
