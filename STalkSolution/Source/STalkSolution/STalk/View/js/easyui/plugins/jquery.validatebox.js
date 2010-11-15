@@ -180,7 +180,7 @@
 	$.fn.validatebox.defaults = {
 		required: false,
 		validType: null,
-		missingMessage: 'This field is required.',
+		missingMessage: '此处不能为空',
 		invalidMessage: null,
 		
 		rules: {
