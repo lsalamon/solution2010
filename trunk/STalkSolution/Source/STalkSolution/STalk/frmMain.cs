@@ -21,6 +21,8 @@ namespace STalk
             InitializeComponent();
             InitXmpp();
             base.Browser.Url = new System.Uri(m_UrlFile);
+            this.Width = 220;
+            this.Height = 480;
             frmLogin frm = new frmLogin(m_Xmpp);
             frm.ShowDialog();
         }

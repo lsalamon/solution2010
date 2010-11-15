@@ -231,9 +231,8 @@
                 state.proxy = null;
             }
         });
-      //  alert(state.options.resizeHandle);
+        
         state.window.resizable({
-            //handles: state.options.resizeHandle,
             disabled: state.options.resizable == false,
             onStartResize: function (e) {
                 if (!state.proxy) {
@@ -367,11 +366,6 @@
         resizable: true,
         shadow: true,
         modal: false,
-        resizeHandle: "n, e, s, w, ne, se, sw, nw, all",
-        minWidth: 10,
-        minHeight: 10,
-        maxWidth: 10000,
-        maxHeight: 10000,
         // window's property which difference from panel
         title: 'New Window',
         collapsible: true,
