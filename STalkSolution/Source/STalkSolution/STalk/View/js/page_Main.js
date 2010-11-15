@@ -5,9 +5,19 @@
     InitLayout();
 
     //初始好友树
-
+    $('#STalkFList').tree();
+    testTree();
     WinForm.Show();
 });
+
+function testTree() {
+    $('#STalkFList').tree('append', { data: [{ "id": 5,
+        "text": "newFolder",
+        "children": [{ "id": 6, "text": "subfile"}]
+
+    }]
+    });
+}
 
 function InitLayout() {
     $('#frmMain').layout();
