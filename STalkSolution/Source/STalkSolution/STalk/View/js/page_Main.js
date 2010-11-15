@@ -1,5 +1,6 @@
 ﻿$(document).ready(function () {
     WinForm.SetTitle("STalk");
+    WinForm.SetSize(220, 480);
     InitWin();
 });
 
@@ -21,7 +22,9 @@ function InitWin() {
         tools: [{ iconCls: 'panel-tool-min',
             handler: function () { WinForm.MinSize(); }
         }, { iconCls: 'panel-tool-close',
-            handler: function () { WinForm.Close(); }
+            handler: function () 
+            { 
+            WinForm.Close(); }
         }],
         closable: false,
         minimizable: false,
@@ -39,8 +42,15 @@ function InitWin() {
     $(header).mousedown(function (e) {
         if ($(e.target).hasClass('panel-title')) {
             WinForm.Move();
-        } 
+        }
     })
+    //设置拉动的handle maxsize minsize
+    var winState = $('#win').data('window');
+    var dragState = $(winState.window).data('resizable');
+    dragState.options.handles = "e,s,se";
+    dragState.options.minWidth = 200;
+    dragState.options.minHeight = 300;
+   // alert();
 }
 
 function OnSocketError() {
