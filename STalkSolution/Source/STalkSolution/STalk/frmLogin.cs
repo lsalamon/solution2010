@@ -19,6 +19,7 @@ namespace STalk
 
         public frmLogin(XmppClientConnection xmpp)
         {
+            Control.CheckForIllegalCrossThreadCalls = false;
             InitializeComponent();
             m_Xmpp = xmpp;
             m_Xmpp.OnLogin += new ObjectHandler(m_Xmpp_OnLogin);
@@ -58,6 +59,9 @@ namespace STalk
         void m_Xmpp_OnLogin(object sender)
         {
             //throw new NotImplementedException();
+            //Console.WriteLine("");
+            m_IsLogin = true;
+            this.Close();
         }
 
         protected override void OnLoad(EventArgs e)
@@ -95,6 +99,9 @@ namespace STalk
                 m_Xmpp.Resource = "STalkClient";
                 m_Xmpp.AutoResolveConnectServer = true;
                 m_Xmpp.ConnectServer = null;
+                m_Xmpp.AutoAgents = false;
+                m_Xmpp.AutoPresence = false;
+                m_Xmpp.AutoRoster = false;
                 m_Xmpp.SocketConnectionType = XMPPProtocol.net.SocketConnectionType.Direct;
                 m_Xmpp.Open();
             }

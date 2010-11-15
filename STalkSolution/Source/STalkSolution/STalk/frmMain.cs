@@ -6,18 +6,21 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using STalk.UI;
+using STalk.Lib;
 using XMPPProtocol;
 
 namespace STalk
 {
     public partial class frmMain : BaseForm
     {
+        private string m_UrlFile = Function.GetViewPath("Main.htm");
         private XmppClientConnection m_Xmpp = new XmppClientConnection();
 
         public frmMain()
         {
             InitializeComponent();
             InitXmpp();
+            base.Browser.Url = new System.Uri(m_UrlFile);
             frmLogin frm = new frmLogin(m_Xmpp);
             frm.ShowDialog();
         }

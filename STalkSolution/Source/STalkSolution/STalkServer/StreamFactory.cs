@@ -223,7 +223,7 @@ namespace STalkServer
                         iq.Type = IqType.error;
                         iq.Query = null;
                         iq.Error = new XMPPProtocol.Protocol.client.Error();
-                        iq.Error.Message = "登录验证失败!";
+                        iq.Error.Message = "用户名或密码错误!";
                         sInfo.Client.Send(iq);
                     }
                     break;
