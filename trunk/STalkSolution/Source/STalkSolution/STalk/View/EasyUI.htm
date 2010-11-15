@@ -26,10 +26,6 @@
                         //这里放winform控制
                         return false;
                     },
-                    onMove: function (l, t) {
-                        alert(l);
-                    },
-                  //  resizable:{ handles: "e, s,ne, se" }),
                     onResize: function (width, height) {
                         WinForm.SetSize(width, height);
                         $('#w').panel('move', {
@@ -39,8 +35,16 @@
                     }
                 });
             });
-          //  $('#w').resizable({ handles: "e, s,ne, se" });
-             //alert(window.webkitNotifications);
+            //$('#w').resizable({ handles: "e, s,ne, se" });
+            //alert(window.webkitNotifications);
+            var test = {
+                _x: 0,
+                _y: 5,
+                func: function (x) { alert(this._x + this._y+x); }
+            }
+            var json = $.toJSON(test);
+            var obk = $.evalJSON(json);
+            obk.func(0);
         </script>
 	</head>
 	<body style="height:100%;width:100%;overflow:hidden;border:none;">
