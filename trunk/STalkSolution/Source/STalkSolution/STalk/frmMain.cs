@@ -18,6 +18,7 @@ namespace STalk
 
         public frmMain()
         {
+            Control.CheckForIllegalCrossThreadCalls = false;
             InitializeComponent();
             InitXmpp();
             base.Browser.Url = new System.Uri(m_UrlFile);

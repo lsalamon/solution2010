@@ -27,13 +27,27 @@
             <div region="center" split="false" border="false"  style="background:#eee;">
                 <!--中间分左右2栏 左边固定-->
                 <div id="frmCenter" style="width:100%;height:100%;">
-                    <div region="west" split="false" border="false" style="height:100%;width:35px; background-color:Aqua;">各种tab</div>
-
-                    <div id="StalkFriendList" region="center" split="false" border="false" style="height:100%;width:100%;background-color:Fuchsia;">
-                        <ul id="STalkFList"></ul>
+                    <!--左边按钮-->
+                    <div id="frmTabs" region="west" split="false" border="false" style="height:100%;width:35px; background-color:Aqua;">
+                        <a href="#" onclick="switchTab('STalkPanel');">stalk</a><br />
+                        <a href="#" onclick="switchTab('MsnPanel');">msn</a><br />
+                        <a href="#" onclick="switchTab('GTalkPanel');">gtalk</a><br />
                     </div>
-                    <!--切换不同的列表-->
-                    <div region="center" split="false" border="false" style="height:100%;width:100%;background-color:Fuchsia; display:none;">列表2</div>
+                    <!--中间区域切换各种-->
+                    <div id="frmTabsPanel" region="center" split="false" border="false" style="height:100%;width:100%;">
+                        <div id="STalkPanel" style="height:100%;width:100%;">
+                            <div region="north" split="false" border="false" style=" height:25px; width:100%">好友 群 最近联系人</div>
+                            <div region="center" split="false" border="false" style="height:100%; width:100%">
+                                <div id="STalk_Firend_Panel">
+                                    <ul id="STalk_Firend_Panel_List"></ul>
+                                </div>
+                                <div id="STalk_Group_Panel" style="display:none;">群</div>
+                                <div id="STalk_LastContact_Panel" style="display:none;">最近联系人</div>
+                            </div>
+                        </div>
+                        <div id="MsnPanel" style="height:100%;width:100%; display:none;"><a href="#">msn</a></div>
+                        <div id="GTalkPanel" style="height:100%;width:100%;display:none;"><a href="#">GTalk</a></div>
+                    </div>
                 </div>
             </div>
             <!--底部固定-->
