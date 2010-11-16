@@ -1,28 +1,28 @@
-﻿$(document).ready(function () {
+﻿var STalk_Friend_List = null;
+
+$(document).ready(function () {
     WinForm.SetTitle("STalk");
     WinForm.SetSize(220, 480);
     InitWin();
     InitLayout();
 
     //初始好友树
-    $('#STalkFList').tree();
-    testTree();
+    InitSTalkFreindList();
+
     WinForm.Show();
 });
 
-function testTree() {
-    $('#STalkFList').tree('append', { data: [{ "id": 5,
-        "text": "newFolder",
-        "children": [{ "id": 6, "text": "subfile"}]
 
-    }]
-    });
+function InitSTalkFreindList() {
+
 }
+
 
 function InitLayout() {
     $('#frmMain').layout();
     $('#frmTop').layout();
     $('#frmCenter').layout();
+    $('#STalkPanel').layout();
 }
 
 function InitWin() {
@@ -70,9 +70,16 @@ function InitWin() {
     dragState.options.handles = "e,s,se";
     dragState.options.minWidth = 200;
     dragState.options.minHeight = 300;
-   // alert();
 }
 
 function OnSocketError() {
-    
+
+}
+
+function switchTab(name) {
+    var panel = $('>div', $("#frmTabsPanel"));
+    $(panel).each(function (idx) {
+        $(this).hide();
+    });
+    $('#' + name).show();
 }

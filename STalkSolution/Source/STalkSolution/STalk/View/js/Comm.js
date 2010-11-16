@@ -65,3 +65,4 @@ var WinForm = $.extend({
         catch (e) { alert(e) }
     }
 });
+
