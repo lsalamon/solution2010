@@ -1,5 +1,4 @@
-﻿var STalk_Friend_List = null;
-
+﻿
 $(document).ready(function () {
     WinForm.SetTitle("STalk");
     WinForm.SetSize(220, 480);
@@ -12,9 +11,37 @@ $(document).ready(function () {
     WinForm.Show();
 });
 
-
+//Stalk 好友处理
 function InitSTalkFreindList() {
+    STalkFriendAddGroup("我的好友");
+    STalkFriendAddGroup("黑名单")
+    STalkFriendAddUser("dcboy", "我的好友");
+    STalkFriendAddUser("dcboy1", "我的好友");
+    STalkFriendAddUser("dcboy2", "我的好友");
+}
 
+function STalkFriendAddUser(uName, groupName) {
+    var groupObj = $('#STalk_Firend_Panel_List').data(groupName);
+    if (groupObj != null) {
+        var uPanel = $(">ul", groupObj);
+        $(uPanel).append("<li class='stalk_friend_list_user'>" + uName + "</li>");
+    }
+}
+
+function STalkFriendAddGroup(name) {
+    //创建elemnt obj
+    var groupObj = $("<li class='stalk_friend_group'><span class='stalk_friend_group_name'>" + name + " [0/0]</span></li>");
+
+    //绑定click事件
+    groupObj.bind("click", function (e) {
+        $(">ul", this).toggle();
+    });
+
+    $('#STalk_Firend_Panel_List').append(groupObj);
+
+    //保存到hash 方便调用
+    $('#STalk_Firend_Panel_List').data(name, groupObj);
+    
 }
 
 
