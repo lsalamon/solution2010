@@ -18,30 +18,40 @@ function InitSTalkFreindList() {
     STalkFriendAddUser("dcboy", "我的好友");
     STalkFriendAddUser("dcboy1", "我的好友");
     STalkFriendAddUser("dcboy2", "我的好友");
+    STalkFriendAddUser("dcboy2", "黑名单");
+    STalkFriendAddUser("dcboy2", "黑名单");
+    STalkFriendAddUser("dcboy2", "黑名单");
+
 }
 
 function STalkFriendAddUser(uName, groupName) {
     var groupObj = $('#STalk_Firend_Panel_List').data(groupName);
     if (groupObj != null) {
         var uPanel = $(">ul", groupObj);
-        $(uPanel).append("<li class='stalk_friend_list_user'>" + uName + "</li>");
+        var userObj = $("<li class='stalk_friend_list_user'>" + uName + "</li>");
+        $(uPanel).append(userObj);
+
+        $(userObj).dbclick(function () {
+            alert('a');
+        });
     }
 }
 
 function STalkFriendAddGroup(name) {
     //创建elemnt obj
-    var groupObj = $("<li class='stalk_friend_group'><span class='stalk_friend_group_name'>" + name + " [0/0]</span></li>");
+    var groupObj = $('<li class="stalk_friend_group"><div class="stalk_friend_group_title">'+name+'</div><ul></ul></li>');
 
     //绑定click事件
-    groupObj.bind("click", function (e) {
-        $(">ul", this).toggle();
+    $(">div", groupObj).click(function () {
+        $(">ul", groupObj).toggle();
     });
+
+    $(">ul", groupObj).hide();
 
     $('#STalk_Firend_Panel_List').append(groupObj);
 
     //保存到hash 方便调用
     $('#STalk_Firend_Panel_List').data(name, groupObj);
-    
 }
 
 

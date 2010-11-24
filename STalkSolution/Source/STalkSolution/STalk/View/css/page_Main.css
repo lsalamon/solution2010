@@ -1,5 +1,7 @@
-﻿.stalk_friend_group{ height:20px; padding-left:20px; margin-bottom:5px;}
-.stalk_friend_group:hover{ background-color:#CAF4F7;}
+﻿.stalk_friend_group .stalk_friend_group_title{ height:20px; padding-left:20px; margin-bottom:5px;}
+.stalk_friend_group .stalk_friend_group_title:hover{ background-color:#CAF4F7;}
 
+.stalk_friend_list_user{}
+.stalk_friend_list_user:hover{background-color:#CAF4F7;}
 /*好友的li*/
 .stalk_friend_list_user{ height:20px;}
